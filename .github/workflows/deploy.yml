@@ -1,0 +1,25 @@
+name: Deploy
+# 监听推送分支master，监听到的话会执行下面jobs任务
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: yarn/action-setup@v2
+        with:
+          version: 6.32.9
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+      - run: yarn && yarn docs:build
+      # 部署到 GitHub Pages
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.VITEPRESS_BLOGS_TOKEN }}
+          publish_dir: docs/.vitepress/dist
+          publish_branch: gh-pages
