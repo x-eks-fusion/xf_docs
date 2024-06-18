@@ -1,25 +1,42 @@
-name: Deploy
-# 监听推送分支master，监听到的话会执行下面jobs任务
+name: Deploy VitePress site to Pages
+
 on:
   push:
-    branches:
-      - dev
+    branches: ['*']
+
+  workflow_dispatch:
+
 jobs:
-  deploy:
+  deploy-and-sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: yarn/action-setup@v2
-        with:
-          version: 6.32.9
+      - name: Checkout
+        uses: actions/checkout@v4
+        # 可选指定分支或默认主分支
+        # with:
+        #   ref: 'main'
+
+      - name: Install yarn
+        run: corepack enable
+
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: yarn
-      - run: yarn && yarn docs:build
-      # 部署到 GitHub Pages
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build Site
+        run: yarn docs:build
+
+      # 将文档产物提交到gh-pages分支
+
+      - name: Deploy for github
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
-          deploy_key: ${{ secrets.VITEPRESS_BLOGS_TOKEN }}
-          publish_dir: docs/.vitepress/dist
-          publish_branch: gh-pages
+          branch: gh-pages
+          folder: doc/.vitepress/dist
+          # enable single-commit to reduce the repo size
+          single-commit: true
+          clean: true
