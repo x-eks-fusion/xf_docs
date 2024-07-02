@@ -85,7 +85,7 @@ function introduction(): DefaultTheme.SidebarItem[] {
 
 export default defineConfig({
   lang: "zh_CN",
-  base: "/docs/",
+  base: "/document/",
   title: "XFusion",
   description: "为开发者提供统一且便于开发的接口的嵌入式系统",
   themeConfig: {
