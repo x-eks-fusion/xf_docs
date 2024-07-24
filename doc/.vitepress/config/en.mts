@@ -1,8 +1,7 @@
-import { defineConfig } from "vitepress"
+import { defineConfig } from "vitepress";
 
-export default defineConfig({
-    lang:"en-US",
-    themeConfig:{
-        
-    }
-})
+export const en = defineConfig({
+  lang: "en-US",
+  /* TODO 英文文档配置 */
+  themeConfig: {},
+});
