@@ -10,12 +10,4 @@ export default {
     enhanceApp({router,app}) {
         
     },
-    Layout(){
-        return h(DefaultTheme.Layout,null,{
-            "not-found":()=>{
-                const router = useRouter()
-                router.go("/")
-            }
-        })
-    }
 } as Theme
