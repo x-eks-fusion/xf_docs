@@ -4,11 +4,7 @@
 
 **阅读对象：**
 
-- 想要添加新的平台或芯片支持/外设驱动支持的贡献者。
-
-**注意：**
-
-- 当前版本文件夹结构并不稳定，将在新版本中修改。
+- 想要添加新的平台或芯片支持/外设驱动支持的移植开发者。
 
 # 概述
 
@@ -20,7 +16,7 @@
 
 1. **移植外设驱动或组件对接。**
 
-   比如添加 xf_hal 中 xf_uart 的驱动实现。
+   比如添加 xf_hal 中驱动的实现。
 
 如图所示:
 
@@ -29,8 +25,8 @@ xfusion/                   xfusion/                   xfusion/
 ┗ boards/                  ┗ ports/                    ┗ components/
   ┗ st/             (对应)   ┗ st/           (对接)      ┃
     ┣ stm32f103c8/ ───>─┬──────╊ stm32f1xx/ ───>─┬───────╊ xf_hal/
-    ┣ stm32f103ze/ ───>─┤      ┃                 │       ┣ xf_event/
-    ┣ stm32f1..../ ───>─┘      ┃                 │       ┗ .../
+    ┣ stm32f103ze/ ───>─┤      ┃                 │       ┗ .../
+    ┣ stm32f1..../ ───>─┘      ┃                 │
     ┃                          ┃                 │                ┃
     ┣ stm32f407zg/ ───>─┬──────┺ stm32f4xx/ ───>─┘                ┃
     ┣ stm32f411ce/ ───>─┤                ┃                        ┃
@@ -53,8 +49,7 @@ xfusion/                   xfusion/                   xfusion/
    即图中右侧的`ports`和`components`部分。
    也就是在`ports`内，根据`components`内的组件的接口要求实现`components`内组件的对接。
 
-本文提供了两个示例，一是添加 stm32f103ze 平台支持的示例，二是添加 xf_uart 实现的示例。请根据需求阅读。详见：
+# 子文档
 
-1. [移植示例 - 添加 stm32f103ze 平台支持](./porting_example_platform_support_stm32f103ze.md).
-
-1. [移植示例 - 添加 xf_uart 实现](./porting_example_xf_uart_porting.md).
+- [移植示例 - 添加新平台支持](./porting_new_platform_support.md)
+- [移植示例 - 添加组件支持](./porting_component_support.md)
