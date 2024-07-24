@@ -109,12 +109,6 @@ function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
       link: "/zh_CN/get-started/practical_tips",
     },
     {
-      text: "运行示例",
-      collapsed: true,
-      link: "/zh_CN/get-started/example/",
-      items: sidebarGetStartedExample(),
-    },
-    {
       text: "工程相关",
       link: "/zh_CN/get-started/project/",
       collapsed: true,
@@ -126,50 +120,6 @@ function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
         {
           text: "安装组件",
           link: "/zh_CN/get-started/project/install_external_components",
-        },
-      ],
-    },
-  ];
-}
-
-/* 快速入门的运行示例部分 */
-function sidebarGetStartedExample(): DefaultTheme.SidebarItem[] {
-  return [
-    {
-      text: "外设示例(peripherals)",
-      collapsed: true,
-      items: [
-        {
-          text: "通用输入/输出(gpio)",
-          link: "/zh_CN/get-started/example/gpio",
-        },
-      ],
-    },
-    {
-      text: "系统示例(system)",
-      collapsed: true,
-      items: [
-        {
-          text: "日志(log)",
-          link: "/zh_CN/get-started/example/log",
-        },
-        {
-          text: "自动初始化(init)",
-          link: "/zh_CN/get-started/example/init",
-        },
-      ],
-    },
-    {
-      text: "任务示例(task)",
-      collapsed: true,
-      items: [
-        {
-          text: "发布订阅(mbus)",
-          link: "/zh_CN/get-started/example/mbus",
-        },
-        {
-          text: "无栈协程(coroutine_stackless)",
-          link: "/zh_CN/get-started/example/coroutine_stackless",
         },
       ],
     },

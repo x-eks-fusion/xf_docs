@@ -101,5 +101,4 @@ xfusion 目前支持以下平台，您可以根据需要安装对应平台的 sd
 - [从 esp32 开始](starting_with_esp32.md)
 - [从 ws63 开始](starting_with_ws63.md)
 - [实用技巧](practical_tips.md)
-- [运行示例](example/index.md)
 - [工程相关](project/index.md)
