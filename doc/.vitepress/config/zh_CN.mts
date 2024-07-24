@@ -91,7 +91,6 @@ function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
   return [
     {
       text: "选择一个平台开始",
-      base:"/",
       collapsed: true,
       items: [
         {
