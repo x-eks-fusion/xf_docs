@@ -8,10 +8,10 @@ hero:
   actions:
     - theme: alt
       text: 介绍
-      link: /document/zh_CN/introduction/
+      link: /zh_CN/introduction/
     - theme: brand
       text: 快速入门
-      link: /document/zh_CN/get-started/
+      link: /zh_CN/get-started/
 
 features:
   - title: 多平台

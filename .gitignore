@@ -3,6 +3,6 @@
 .npmrc
 package-lock.json
 cache
-doc/.vitepress/dist
+dist
 
 .vscode

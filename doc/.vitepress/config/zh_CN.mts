@@ -11,27 +11,23 @@ export const zh_CN = defineConfig({
       {
         text: "介绍",
         collapsed: false,
-        base:"/document/",
         link: "/zh_CN/introduction/",
         items: sidebarIntroduction(),
       },
       {
         text: "快速入门",
-        base:"/document/",
         collapsed: false,
         link: "/zh_CN/get-started/",
         items: sidebarGetStarted(),
       },
       {
         text: "深入了解",
-        base:"/document/",
         collapsed: false,
         link: "/zh_CN/insight/",
         items: sidebarInsight(),
       },
       {
         text: "贡献指南",
-        base:"/document/",
         collapsed: false,
         link: "/zh_CN/contribute/",
         items: sidebarContribute(),
@@ -70,15 +66,15 @@ function nav(): DefaultTheme.NavItem[] {
   return [
     {
       text: "首页",
-      link: "/document/",
+      link: "/",
     },
     {
       text: "介绍",
-      link: "/document/zh_CN/introduction/",
+      link: "/zh_CN/introduction/",
     },
     {
       text: "快速入门",
-      link: "/document/zh_CN/get-started/",
+      link: "/zh_CN/get-started/",
     },
   ];
 }
@@ -95,7 +91,7 @@ function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
   return [
     {
       text: "选择一个平台开始",
-      base:"/document/",
+      base:"/",
       collapsed: true,
       items: [
         {
@@ -110,12 +106,10 @@ function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
     },
     {
       text: "实用技巧",
-      base:"/document/",
       link: "/zh_CN/get-started/practical_tips",
     },
     {
       text: "工程相关",
-      base:"/document/",
       link: "/zh_CN/get-started/project/",
       collapsed: true,
       items: [
