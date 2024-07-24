@@ -1,7 +1,3 @@
----
-outline: deep
----
-
 # 贡献指南
 
 非常感谢您对 xfusion 作出贡献！xfusion 在 Apache-2.0 开源许可证下开源。
@@ -44,8 +40,9 @@ outline: deep
 - 签署 CLA：
   如果您是第一次向 xfusion 贡献代码，则需要在 PR 页面签署 Contributor License Agreement(CLA)。
 
-# 了解更多
+# 子文档
 
-- 如何移植一个新的芯片到 xfusion ？[移植指南](./porting_guide.md)
-- 了解 xfusion 的工程结构：[工程结构](./project_structure.md)
-- xfusion 的开发流程(工作环境)是怎么样的？[工作流程](./workflow.md)
+- [代码注释指南](./code_comment_guide.md)
+- [编码风格指南](./coding_style_guide.md)
+- [文档编写指南](./documentation_guide.md)
+- [PR 提交步骤](./pull_request_process.md)

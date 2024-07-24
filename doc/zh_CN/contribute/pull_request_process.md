@@ -163,9 +163,21 @@ xfusion 目前使用 vscode 插件`redjue.git-commit-plugin`生成 commit 消息
 | **chore**    | 对构建过程或辅助工具和库（例如文档生成）的更改       |
 | **revert**   | 回滚到上一个版本                                     |
 
-### scope(修改范围，可选)
+### scope(修改范围)
 
 范围可以是指定提交更改位置的任何内容。
+
+修改范围是**必填**项目，目前使用的格式约定如下：
+
+`最外层目录名-修改的模块`.
+
+例如：
+
+```txt
+🐞 fix(example-gatt): 延时改xf task；修正部分log输出
+📃 docs(ports-ws63): 上传readme
+🐞 fix(components-xf_hal..): 更新日志等级
+```
 
 ### subject(概述)
 
