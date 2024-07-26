@@ -21,6 +21,12 @@ export const zh_CN = defineConfig({
         items: sidebarGetStarted(),
       },
       {
+        text: "API 参考",
+        collapsed: false,
+        link: "/zh_CN/api-reference/",
+        items: sidebarAPIReference(),
+      },
+      {
         text: "深入了解",
         collapsed: false,
         link: "/zh_CN/insight/",
@@ -122,6 +128,13 @@ function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
         },
       ],
     },
+  ];
+}
+
+/* API 参考 */
+function sidebarAPIReference(): DefaultTheme.SidebarItem[] {
+  return [
+    /* TODO  */
   ];
 }
 
