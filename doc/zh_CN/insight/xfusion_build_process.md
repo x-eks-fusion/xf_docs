@@ -1,6 +1,8 @@
 # xfusion 构建流程
 
-TODO xfusion 构建流程
+::: tip TODO
+xfusion 构建流程
+:::
 
 本文简要说明 xfusion 的构建流程。
 

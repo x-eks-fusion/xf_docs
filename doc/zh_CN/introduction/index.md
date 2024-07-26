@@ -18,7 +18,9 @@ TODO 这里放 xfusion 整体框架图
 
 # 特性
 
-TODO 可考虑增加特征集的描述
+::: warning TODO
+可考虑增加特征集的描述
+:::
 https://nuttx.apache.org/docs/latest/introduction/about.html#feature-set
 
 - 丰富强大的组件库；
@@ -85,16 +87,20 @@ xfusion 使用 Apache License 2.0 开源许可协议开源。
 
 xfusion 中用到的其他开源项目声明如下：
 
-TODO 其他开源项目声明
-
+::: warning TODO
+其他开源项目声明
+:::
 # 存储库布局
 
-TODO 存储库布局
-
+::: warning TODO
+存储库布局
+:::
 # 版本说明
 
-TODO 补全版本说明
-
+::: warning TODO
+补全版本说明
+:::
 # FAQ
-
-TODO 补全 FAQ
+::: warning TODO
+补全 FAQ
+:::

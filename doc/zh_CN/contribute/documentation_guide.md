@@ -137,8 +137,10 @@ example 的介绍文档需要包含以下内容：
 
 ## 组件的介绍文档
 
-TODO: 组件的介绍文档模板。
+::: tip Note
 
+组件的介绍文档模板。
+:::
 # 参考文献
 
 1. [编写文档 - ESP32 - — ESP-IDF 编程指南 latest 文档 (espressif.com)](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/contribute/documenting-code.html)
