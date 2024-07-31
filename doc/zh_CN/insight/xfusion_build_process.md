@@ -1,17 +1,33 @@
 # xfusion 构建流程
 
+本文简要说明 xfusion 的构建流程。
+
+---
+
+**阅读对象：**
+
+- 想要深入了解 `xfusion` 框架的用户以及移植开发者。
+
+---
+
 ## export 阶段
+
 构建之初会使用`export`脚本激活`xfuison`
 
 windows cmd:
+
 ```cmd
 .\export.bat <target>
 ```
+
 windows powershell:
+
 ```powershell
 .\export.ps1 <target>
 ```
+
 linux:
+
 ```shell
 . ./export.sh <target>
 ```
@@ -20,13 +36,14 @@ linux:
 其次，创建`python`虚拟环境（如果当前出于`python`虚拟环境中,则不创建）。
 最后安装位于`tools/xf_build/`下的`xf_build`构建工具
 
-----------------------------------------------------------------
+---
 
 ## 前期判断
 
 当我们执行`xf build`命令的时候。
 会自动调用 `tools/xf_build/xf_build/xf_build/cmd/cmd.py`中的`build()`函数。
 `build()`函数操作：
+
 1. **检查是否是工程目录。**
    此检查是通过当前目录下有无`xf_project.py`实现的。
    后续会创建临时环境变量`XF_PROJECT_PATH`保存工程路径。
@@ -39,7 +56,7 @@ linux:
 
 4. **执行`xf_project.py`脚本, 完成收集编译信息任务**
 
--------------------------------------------------------------------
+---
 
 ## 收集阶段
 
@@ -50,19 +67,22 @@ import xf_build
 
 xf_build.project_init()
 xf_build.program()
-```     
+```
+
 `project_init()`方法位于`tools/xf_build/xf_build/xf_build/__init__.py`文件中。
 主要完成默认`project`对象的创建，以及简化其方法的调用
 
 `program()`方法位于`tools/xf_build/xf_build/xf_build/build.py`文件中。
 `program()`主要的作用是：
-   1. 将`XF_ROOT`下的`components`文件夹下的所有文件夹视为一个个组件。
-   2. 将`XF_PROJECT_PATH`下的`components`文件夹下的所有文件夹视为一个个组件。
-   3. 将`XF_PROJECT_PATH`下的`main`视为一个组件。
-   4. 执行所有组件的`xf_collect.py`文件
-   5. 最终将所有的构建信息收集到`XF_PROJECT_PATH`下的`build/build_environ.json`中
+
+1.  将`XF_ROOT`下的`components`文件夹下的所有文件夹视为一个个组件。
+2.  将`XF_PROJECT_PATH`下的`components`文件夹下的所有文件夹视为一个个组件。
+3.  将`XF_PROJECT_PATH`下的`main`视为一个组件。
+4.  执行所有组件的`xf_collect.py`文件
+5.  最终将所有的构建信息收集到`XF_PROJECT_PATH`下的`build/build_environ.json`中
 
 其中`xf_collect.py`文件大致为：
+
 ```python
 import xf_build
 
@@ -76,13 +96,14 @@ xf_build.collect()
 
 TODO: 后续将会添加更多的指令收集，如：`cflag`等编译参数收集。
 
--------------------------------------------------------------------
+---
 
 ## 插件编译部分
 
 上个阶段的末期会调用`XF_ROOT`下的`plugins`下的`XF_TARGET`插件。这部分需要移植者针对不同的`target`进行对应的编译插件开发。
 
 插件开发需要完成以下几个功能：
+
 1. 创建你所需要的`target`文件夹
 2. 在`target`文件夹下创建`__init__.py`文件。该文件内容如下：
    ```python
@@ -90,9 +111,10 @@ TODO: 后续将会添加更多的指令收集，如：`cflag`等编译参数收�
    ```
    只有该文件存在，才会被识别为一个`python`包
 3. 在`target`文件夹下创建`build.py`文件。该文件内容如下：
+
    ```python
    import xf_build
-    
+
    hookimpl = xf_build.get_hookimpl()
 
    class esp32():
@@ -100,7 +122,7 @@ TODO: 后续将会添加更多的指令收集，如：`cflag`等编译参数收�
     def build(self, args):
         """
         这里对接编译的内容。
-        通过 XF_PROJECT_PATH 下的 
+        通过 XF_PROJECT_PATH 下的
         build/build_environ.json 文件
         生成对应的sdk构建脚本
         启动sdk的编译命令
@@ -136,8 +158,3 @@ TODO: 后续将会添加更多的指令收集，如：`cflag`等编译参数收�
         这里sdk的menuconfig命令。
         """
    ```
--------------------------------------------------------------
-
-**阅读对象：**
-
-- 想要深入了解 `xfusion` 框架的用户以及移植开发者。
