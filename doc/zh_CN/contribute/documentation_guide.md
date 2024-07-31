@@ -4,6 +4,8 @@
 
 本文说明编写 xfusion 文档需要遵守的格式、内容等规则。
 
+---
+
 **适用范围：**
 
 - *外部库以外*的所有文档，目前 xfusion 文档以 markdown 格式为主。
@@ -11,6 +13,8 @@
 **阅读对象：**
 
 - 所有贡献者。
+
+---
 
 本文假定读者已经对 markdown 语法有充分的了解，如对参考 markdown 语法，请参考[参考文献](#参考文献)中的`[2-3]`。
 
@@ -141,6 +145,7 @@ example 的介绍文档需要包含以下内容：
 
 组件的介绍文档模板。
 :::
+
 # 参考文献
 
 1. [编写文档 - ESP32 - — ESP-IDF 编程指南 latest 文档 (espressif.com)](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/contribute/documenting-code.html)
