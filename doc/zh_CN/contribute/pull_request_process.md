@@ -2,9 +2,13 @@
 
 本文说明 xfusion 的 Pull Request 提交步骤。
 
+---
+
 **阅读对象：**
 
 - 所有需要提交代码的贡献者。
+
+---
 
 # Pull Request 是什么
 
