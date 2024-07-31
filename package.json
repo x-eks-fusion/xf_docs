@@ -12,7 +12,7 @@
     }
   },
   "lint-staged": {
-    "*.{md,json,yaml}": [
+    "*.{md}": [
       "markdownlint --fix",
       "git add"
     ]
