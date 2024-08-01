@@ -10,7 +10,7 @@
 
 ---
 
-# 子文档
+## 子文档
 
 - [新建工程与用户组件](new_project_and_user_component.md)
 - [安装外部组件](install_external_components.md)

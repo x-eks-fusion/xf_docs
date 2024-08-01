@@ -29,7 +29,7 @@ xfusion 的组件仓库目前的地址是：
 
 本文以 `cJSON` 为例介绍如何实用 xfusion 的组件系统。
 
-# JSON 和 cJSON
+## JSON 和 cJSON
 
 JSON（JavaScript 对象表示法）是一种轻量级的数据交换格式。JSON 是一种完全独立于语言的文本格式，但使用 C 系列语言的程序员熟悉的约定，包括 C、C++、C#、Java、JavaScript、Perl、Python 等。这些属性使 JSON 成为理想的数据交换语言。
 
@@ -64,7 +64,7 @@ JSON 建立在两个结构之上：
 
 而 cJSON 是由 Dave Gamble 使用 ANSI C 编写的轻量级 JSON 解析器，cJSON 使用 MIT 开源协议。
 
-# xfusion 中使用 cJSON
+## xfusion 中使用 cJSON
 
 xfusion 已经将其集成到外部组件库中，点击[geek-heart.com](http://www.geek-heart.com/)中的 `cJSON` 组件可以看到如下页面：
 

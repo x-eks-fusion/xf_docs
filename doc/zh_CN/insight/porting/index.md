@@ -10,7 +10,7 @@
 
 ---
 
-# 概述
+## 概述
 
 为 xfusion 移植通常分为两个部分：
 
@@ -53,7 +53,7 @@ xfusion/                   xfusion/                   xfusion/
    即图中右侧的`ports`和`components`部分。
    也就是在`ports`内，根据`components`内的组件的接口要求实现`components`内组件的对接。
 
-# 子文档
+## 子文档
 
 - [移植示例 - 添加新平台支持](./porting_new_platform_support.md)
 - [移植示例 - 添加组件支持](./porting_component_support.md)

@@ -18,7 +18,7 @@
 
 本文假定读者已经对 markdown 语法有充分的了解，如对参考 markdown 语法，请参考[参考文献](#参考文献)中的`[2-3]`。
 
-# 文档格式
+## 文档格式
 
 xfusion 文档目前只提供中文和英文两种语言，为了管理不同语言文档中的图片，**请将文档中使用到的图片统一放到`doc/public/image`路径下**。
 
@@ -81,12 +81,12 @@ xfusion 文档目前只提供中文和英文两种语言，为了管理不同语
    1. markdown 源码也需要保证一定的美观。
       TODO: markdown 源码格式具体规定。
 
-# 文档内容
+## 文档内容
 
 本节介绍文档中应当有什么内容。
 目前主要说明 example 的介绍文档以及组件的说明文档应当有哪些内容。
 
-## example 的介绍文档
+### example 的介绍文档
 
 TODO: example 的介绍文档模板。
 
@@ -139,14 +139,14 @@ example 的介绍文档需要包含以下内容：
    1. 工具链名称及版本号；
    1. 平台支持包版本号（如实现`xf_hal`的下层硬件驱动）。
 
-## 组件的介绍文档
+### 组件的介绍文档
 
 ::: tip Note
 
 组件的介绍文档模板。
 :::
 
-# 参考文献
+## 参考文献
 
 1. [编写文档 - ESP32 - — ESP-IDF 编程指南 latest 文档 (espressif.com)](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/contribute/documenting-code.html)
 1. [Markdown 教程 | 菜鸟教程 (runoob.com)](https://www.runoob.com/markdown/md-tutorial.html)

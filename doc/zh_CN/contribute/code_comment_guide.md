@@ -14,14 +14,14 @@
 
 ---
 
-# 简介
+## 简介
 
 xfusion c/cpp 代码的注释使用 doxygen 风格的注释，如果使用 vscode 编写代码，请安装`cschlosser.doxdocgen`插件，方便生成 doxygen 风格的注释。
 
 > vscode 的 doxygen 插件：[Doxygen Documentation Generator](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen).
 > doxygen 文档：[Documenting the code](https://www.doxygen.nl/manual/docblocks.html)
 
-## 原则
+### 原则
 
 **注释**是帮助读者在阅读和使用代码的信息。
 
@@ -65,9 +65,9 @@ xf_spi_bus_cfg_t bus_cfg = {0};
 
 ---
 
-# 示例
+## 示例
 
-## 文件头注释
+### 文件头注释
 
 ```c
 /**
@@ -87,7 +87,7 @@ xf_spi_bus_cfg_t bus_cfg = {0};
 
 TODO: 文件头注释规范。
 
-## 如何注释
+### 如何注释
 
 以下代码是函数注释示例，位于`components/xf_hal/xf_spi/xf_spi.h`。
 
@@ -268,7 +268,7 @@ typedef struct _xf_spi_cfg_t {
 } xf_spi_cfg_t;
 ```
 
-### 做得更好
+#### 做得更好
 
 除了`@brief, @param, @return`等等常用命令，还有`@details, @code, @example`等命令可以让你的注释做得更出色。如以下示例所示。
 
@@ -355,7 +355,7 @@ xf_err_t xf_spi_dev_set_cfg(
          **注意`@}`后面请注释组的标题**，告诉告诉读者当前括号的归属。
          `@addtogroup`用法类似于`@defgroup`。此处不在赘述。
 
-# 参考文献
+## 参考文献
 
 - [Documenting Code](https://docs.espressif.com/projects/esp-idf/zh_CN/release-v5.0/esp32/contribute/documenting-code.html)
 - [Documenting the code](https://www.doxygen.nl/manual/docblocks.html)

@@ -28,9 +28,9 @@ Hi3863V100 系列芯片采用 QFN40（5mm x 5mm）封装，匹配不同场合的
 
 见：《[Hi3863V100 芯片 | 海思官网 (hisilicon.com)](https://www.hisilicon.com/cn/products/connectivity/short-range-IoT/wifi-nearlink-ble/Hi3863V100)》。
 
-# 安装 WS63 SDK
+## 安装 WS63 SDK
 
-## 获取源码
+### 获取源码
 
 如果您有 `WS63_1.10.T7.xxxxxxxx.tar.gz` 压缩包，您可以按照以下步骤安装 WS63 SDK。
 
@@ -56,7 +56,7 @@ Hi3863V100 系列芯片采用 QFN40（5mm x 5mm）封装，匹配不同场合的
   git clone http://xxx/xfusion/ws63_1.10.t7.git
   ```
 
-## 安装 WS63 SDK 环境依赖
+### 安装 WS63 SDK 环境依赖
 
 ```bash
 # 搭建Linux开发环境
@@ -89,7 +89,7 @@ sudo pip3 install kconfiglib
 pip3 install pycparser==2.21
 ```
 
-## (可以忽略)原生 SDK 编译测试
+### (可以忽略)原生 SDK 编译测试
 
 此时解压出来的 ws63 sdk 无法直接编译，需要手动关闭 xfusion 对接部分才能编译。
 
@@ -118,7 +118,7 @@ pip3 install pycparser==2.21
 
     根据上述步骤重新打开即可。
 
-# 基于 WS63 SDK 使用 xfusion
+## 基于 WS63 SDK 使用 xfusion
 
 1. vscode 远程连接到虚拟机，并且打开 xfusion 文件夹。
 1. 导出 xfusion 环境变量。

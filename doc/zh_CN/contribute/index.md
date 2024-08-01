@@ -12,7 +12,7 @@
 
 ---
 
-# 准备工作
+## 准备工作
 
 提交 Pull Request(以下简称 PR) 前，请检查以下条目：
 
@@ -44,7 +44,7 @@
 - 签署 CLA：
   如果您是第一次向 xfusion 贡献代码，则需要在 PR 页面签署 Contributor License Agreement(CLA)。
 
-# 子文档
+## 子文档
 
 - [代码注释指南](./code_comment_guide.md)
 - [编码风格指南](./coding_style_guide.md)

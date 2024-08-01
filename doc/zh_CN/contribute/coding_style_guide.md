@@ -24,7 +24,7 @@ TODO: xfusion cpp 语言代码编程规范
 
 ---
 
-# xfusion 头文件/源文件模板
+## xfusion 头文件/源文件模板
 
 xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模板，提交到 xfusion 的代码请应用 xfusion 头文件/源文件模板。
 
@@ -32,7 +32,7 @@ xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模�
 
 模板说明实例见`examples/get_started/xf_template/main`内的`xf_template_source_detail.h/xf_template_source_detail.c`。详情见下文。
 
-# 使用自动格式化
+## 使用自动格式化
 
 详情见：[format_code/README.md](#)。
 
@@ -40,7 +40,7 @@ xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模�
 
 自动格式化会帮你完成在合适的运算符周围添加空格、缩进代码、限制连续空白行数、限制每行字符数等等工作。
 
-# 模板的说明
+## 模板的说明
 
 该小节介绍 xfusion 的 c 语言头文件/源文件模板的组成部分。
 
@@ -55,7 +55,7 @@ xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模�
 1. 文件编码格式为 **UTF-8** 格式；
 1. 使用 Unix 风格的 **LF** 行结束符，而不是 Windows 风格的 CRLF 行结束符。
 
-## 头文件模板
+### 头文件模板
 
 头文件模板由以下几个部分组成：
 
@@ -139,7 +139,7 @@ xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模�
   /* ==================== [Macros]    ============================================ */
   ```
 
-## 源文件模板
+### 源文件模板
 
 源文件模板由以下几个部分组成：
 
@@ -186,11 +186,11 @@ xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模�
   /* ==================== [Static Functions]   ================================== */
   ```
 
-# 编码风格说明
+## 编码风格说明
 
 该部分将详细介绍编码风格。注释风格请见《[代码注释指南](./code_comment_guide.md)》。该文档说明如何写出符合 doxygen 格式要求的注释。
 
-## 缩进风格
+### 缩进风格
 
 xfusion c 源码缩进风格使用"One True Brace Style"，简称`1TBS`或`OTBS`，这是一种基于"K&R"风格的变体。`1TBS`和`K&R`最大的区别是，`1TBS`不允许单语句分支时省略花括号。此处不对缩进风格作详细介绍，详细内容请查阅[Indentation style](https://en.wikipedia.org/wiki/Indentation_style)。
 
@@ -236,9 +236,9 @@ int main(int argc, char *argv[])
 }
 ```
 
-## 命名风格
+### 命名风格
 
-### 文件及目录命名风格
+#### 文件及目录命名风格
 
 TODO: 文件及目录命名风格详细说明
 
@@ -257,7 +257,7 @@ TODO: 文件及目录命名风格详细说明
 - xf_uart_port.h: 实现当前模块功能所需要的接口。用户通常无需使用。
 - xf_uart_types.h: 当前模块定义的数据类型。
 
-### 内容(命名及排版)风格
+#### 内容(命名及排版)风格
 
 由于头文件内的内容会被别处调用，通过命名空间标识来源是有必要的。
 
@@ -272,7 +272,7 @@ TODO: 文件及目录命名风格详细说明
 1. 函数；
 1. 全局变量（建议不使用）。
 
-#### 宏
+##### 宏
 
 宏定义(无参宏)是预处理指令中的一种，预处理阶段时会替换宏名为宏对应的替换列表。
 格式为`#define 宏名 替换列表`。
@@ -391,7 +391,7 @@ TODO: 文件及目录命名风格详细说明
    #endif
    ```
 
-#### 类型定义、结构体、共用体、枚举类型等
+##### 类型定义、结构体、共用体、枚举类型等
 
 xfusion 所有的 c 头文件/源文件都**强制**使用类型定义去替代结构体、共用体、枚举类型，包括浮点类型、整型等数据类型。
 
@@ -466,7 +466,7 @@ xfusion 所有的 c 头文件/源文件都**强制**使用类型定义去替代�
       } xf_templ_enum_t;
       ```
 
-#### 函数、变量、常量、goto 标签等
+##### 函数、变量、常量、goto 标签等
 
 xfusion c 语言代码都采用`snake_case`风格命名。也就是`unix like`风格。如`xf_evt_attach()`、`xf_evt_sys_init()`等等。
 如需缩写，请从[缩写词表](#缩写词表)中选取。
@@ -568,7 +568,7 @@ xfusion c 语言代码都采用`snake_case`风格命名。也就是`unix like`�
 1. goto 标签。
    通常**建议**单下划线开头，如`_xf_xxx_init_err`，表示 xxx 模块初始化错误时的处理，如释放资源等等。
 
-## 内容编排风格
+### 内容编排风格
 
 详情见详细示例`examples/get_started/xf_template/main/xf_template_source_detail.c`。
 
@@ -576,7 +576,7 @@ xfusion c 语言代码都采用`snake_case`风格命名。也就是`unix like`�
 
 请根据内容提示符编写代码。
 
-### 头文件顺序
+#### 头文件顺序
 
 1. 当前组件的公共头文件，也就是当前组件对外提供的功能的头文件；如：`#include "xf_template_header_detail.h"`；
 2. 标准库，如 `#include <stdio.h>`；
@@ -603,7 +603,7 @@ xfusion c 语言代码都采用`snake_case`风格命名。也就是`unix like`�
 #include "xf_component_template.h"
 ```
 
-### 其余细则
+#### 其余细则
 
 - 不要以空行开始或者结束函数。
   ```c
@@ -640,9 +640,9 @@ xfusion c 语言代码都采用`snake_case`风格命名。也就是`unix like`�
 - 在合适的运算符周围添加空格（自动格式化会自动完成）。
 - 如果不再需要某些代码，请将其完全删除。如果需要临时禁用，请在注释的代码周围说明原因。`#if 0 ... #endif`代码块同样。
 
-# 附录
+## 附录
 
-## 缩写词表
+### 缩写词表
 
 | 中文        | 英文          | 缩写   |
 | :---------- | :------------ | :----- |
@@ -677,7 +677,7 @@ xfusion c 语言代码都采用`snake_case`风格命名。也就是`unix like`�
 | 初始化      | initialize    | init   |
 | 反初始化    | deinitialize  | deinit |
 
-## 反义或互斥词组
+### 反义或互斥词组
 
 | 中文            | 英文                |
 | :-------------- | :------------------ |
@@ -705,7 +705,7 @@ xfusion c 语言代码都采用`snake_case`风格命名。也就是`unix like`�
 | 发送/接收       | send/receive        |
 | 上/下           | up/down             |
 
-# 参考文献
+## 参考文献
 
 1. [Espressif IoT Development Framework Style Guide](https://docs.espressif.com/projects/esp-idf/zh_CN/release-v5.0/esp32/contribute/style-guide.html)
 1. [LVGL Coding style](https://docs.lvgl.io/master/CODING_STYLE.html)

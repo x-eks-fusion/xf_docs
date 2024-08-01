@@ -10,7 +10,7 @@
 
 ---
 
-# 安装 ESP-IDF
+## 安装 ESP-IDF
 
 注意，xfusion 目前对接的是 esp-idf v5.0 版本。
 
@@ -18,7 +18,7 @@
 
 《[快速入门 - ESP32 - — ESP-IDF 编程指南 v5.0.6 文档 (espressif.com)](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.0.6/esp32/get-started/index.html)》。
 
-# 基于 ESP-IDF 使用 xfusion
+## 基于 ESP-IDF 使用 xfusion
 
 1.  vscode 远程连接到虚拟机，并且打开 xfusion 文件夹。
 1.  **先导出 esp-idf 环境变量**，再导出 xfusion 环境变量。

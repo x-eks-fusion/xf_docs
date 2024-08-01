@@ -10,9 +10,9 @@
 
 ---
 
-# VSCode 配置
+## VSCode 配置
 
-## C/C++ 配置
+### C/C++ 配置
 
 使用以下 VSCode C/C++ 可以在编写代码时有正确的语法提示。
 
@@ -58,7 +58,7 @@
 
 ​![image](/image/practical_tips-macro_expanded.png)​
 
-## VSCode 工作区配置
+### VSCode 工作区配置
 
 以下工作区配置设置了格式化程序 astyle，同时推荐了工作区插件。
 

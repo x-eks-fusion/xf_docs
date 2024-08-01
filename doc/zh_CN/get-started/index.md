@@ -10,7 +10,7 @@
 
 ---
 
-# 环境需求
+## 环境需求
 
 目前主要使用的开发环境是：**Windows + Linux 虚拟机**。
 
@@ -30,7 +30,7 @@
 >       1. [设置 WSL 开发环境 | Microsoft Learn](https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment)
 >       2. [开始通过 WSL 使用 VS Code | Microsoft Learn](https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-vscode)
 
-# 前置准备
+## 前置准备
 
 如果没有安装 python, 请先安装 python 3.8 以上的版本的 python.
 
@@ -41,11 +41,11 @@
     sudo apt-get install python3 python3-pip
     ```
 
-# 安装 xfusion
+## 安装 xfusion
 
 如果您有 xfusion release 压缩包（含子模块的完整 release），您可以使用《[通过压缩包](#通过压缩包)》的步骤安装 xfusion 本体。否则请通过《[通过 git 链接](#通过-git-链接)》的步骤安装。
 
-## 通过压缩包
+### 通过压缩包
 
 1.  打开虚拟机终端。
 2.  解压 xfusion 到你想放到的文件夹。
@@ -63,7 +63,7 @@
     mkdir sdks
     ```
 
-## 通过 git 链接
+### 通过 git 链接
 
 TODO 更新 xfusion 链接
 
@@ -87,7 +87,7 @@ TODO 更新 xfusion 链接
     mkdir sdks
     ```
 
-# 安装具体平台 SDK
+## 安装具体平台 SDK
 
 xfusion 本身不含工具链，需要安装对应平台的开发环境才能编译 xfusion 的代码。
 
@@ -125,11 +125,11 @@ Commands:
   version     查询当前版本
 ```
 
-# 实用技巧
+## 实用技巧
 
 如果您使用 VSCode 开发，这些《[实用技巧](practical_tips.md)》可以使你的 VSCode 更好用，比如配置智能感知实现精准的代码提示、配置代码格式化等。
 
-# 子文档
+## 子文档
 
 - [从 esp32 开始](starting_with_esp32.md)
 - [从 ws63 开始](starting_with_ws63.md)

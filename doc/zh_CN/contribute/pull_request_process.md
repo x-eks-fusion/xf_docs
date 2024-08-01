@@ -10,7 +10,7 @@
 
 ---
 
-# Pull Request 是什么
+## Pull Request 是什么
 
 Pull Request (以下简称 PR) 和 Merge Request (以下简称 MR) 都是代码协作中**用于请求将代码更改合并到主分支的机制。**
 
@@ -18,7 +18,7 @@ Pull Request (以下简称 PR) 和 Merge Request (以下简称 MR) 都是代码�
 
 Pull Request 是在 GitHub 上使用的术语，而 Merge Request 通常与 GitLab 关联，只是 Merge Request 更直接地反映了请求的最终操作，即合并(merge)代码到主分支。因此 **PR 和 MR 在下文中不作区分。**
 
-# xfusion 的 Pull Request 提交步骤
+## xfusion 的 Pull Request 提交步骤
 
 xfusion 不允许直接推送代码到主分支(main)，因此您必须先要 fork 一份副本。以下是具体的操作方法：
 
@@ -132,11 +132,11 @@ xfusion 不允许直接推送代码到主分支(main)，因此您必须先要 fo
 
    1. 创建 Pull Request 成功后，审核人员会审核您的代码，相关意见会在 Pull Request 页面中反馈给您，您需要根据意见修改。一旦审核人员认为您的修改没有问题了，请及时压缩到一个 commit，之后审核人员通过您的贡献。
 
-# commit 消息的格式
+## commit 消息的格式
 
 xfusion 目前使用 vscode 插件`redjue.git-commit-plugin`生成 commit 消息。
 
-## 格式
+### 格式
 
 格式遵循 [Angular Team Commit Specification](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines)，如下所示：
 
@@ -148,7 +148,7 @@ xfusion 目前使用 vscode 插件`redjue.git-commit-plugin`生成 commit 消息
 <footer>
 ```
 
-### type(类型)
+#### type(类型)
 
 必须是以下之一：
 
@@ -167,7 +167,7 @@ xfusion 目前使用 vscode 插件`redjue.git-commit-plugin`生成 commit 消息
 | **chore**    | 对构建过程或辅助工具和库（例如文档生成）的更改       |
 | **revert**   | 回滚到上一个版本                                     |
 
-### scope(修改范围)
+#### scope(修改范围)
 
 范围可以是指定提交更改位置的任何内容。
 
@@ -183,7 +183,7 @@ xfusion 目前使用 vscode 插件`redjue.git-commit-plugin`生成 commit 消息
 🐞 fix(components-xf_hal..): 更新日志等级
 ```
 
-### subject(概述)
+#### subject(概述)
 
 概述是对更改的简要描述：
 
@@ -193,11 +193,11 @@ xfusion 目前使用 vscode 插件`redjue.git-commit-plugin`生成 commit 消息
 - 最多 20 个字符。
 - 目前以中文为主，不排除修改为英文的可能。
 
-### body(详情)
+#### body(详情)
 
 用于描述此更改的详情。
 
-### 备注
+#### 备注
 
 备注通常是修复 bug 的链接。
 
@@ -205,7 +205,7 @@ xfusion 目前使用 vscode 插件`redjue.git-commit-plugin`生成 commit 消息
 
 > 格式详情见：[RedJue/git-commit-plugin: Automatically generate git commit (github.com)](https://github.com/RedJue/git-commit-plugin/tree/master)
 
-# 本文待办事项
+## 本文待办事项
 
 TODO: 1. 持续集成（CI）Continuous Integration (CI)。
 TODO: 2. 替换链接`{xfusion 仓库链接}`，给出详细的步骤截图。
@@ -215,7 +215,7 @@ TODO: 5. 使用 vscode 相关插件优化步骤。
 TODO: 6. rebase 具体步骤。见[使用 Git 进行更改](https://nuttx.apache.org/docs/latest/contributing/making-changes.html)。
 TODO: 7. 提交前的检查清单。
 
-# 参考文献
+## 参考文献
 
 - [使用 Git 进行更改- NuttX latest 文档 --- Making Changes Using Git — NuttX latest documentation (apache.org)](https://nuttx.apache.org/docs/latest/contributing/making-changes.html)
 - [NuttX RFC 0001：代码贡献工作流- NUTTX - Apache 软件基金会 --- NuttX RFC 0001: Code Contribution Workflow - NUTTX - Apache Software Foundation](https://cwiki.apache.org/confluence/display/NUTTX/NuttX+RFC+0001%3A+Code+Contribution+Workflow)
