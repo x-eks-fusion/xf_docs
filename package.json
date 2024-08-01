@@ -7,15 +7,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npx lint-staged",
       "commit-msg": "npx --no-install commitlint --edit $1"
     }
-  },
-  "lint-staged": {
-    "*.{md}": [
-      "markdownlint --fix",
-      "git add"
-    ]
   },
   "dependencies": {
     "vitepress": "1.0.1",
@@ -24,8 +17,6 @@
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
-    "husky": "^9.1.4",
-    "lint-staged": "^15.2.7",
-    "markdownlint-cli": "^0.41.0"
+    "husky": "^9.1.4"
   }
 }
