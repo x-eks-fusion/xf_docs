@@ -2,9 +2,13 @@
 
 本文说明如何基于 esp-idf 使用 xfusion。
 
+---
+
 **阅读对象：**
 
 - 基于 esp-idf 平台使用 xfusion 的用户。
+
+---
 
 # 安装 ESP-IDF
 

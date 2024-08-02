@@ -4,6 +4,8 @@
 
 请遵守 xfusion 编码风格，统一编码风格可以减少因为风格转换带来的阅读成本。
 
+---
+
 **适用范围：**
 
 - *外部库以外*的所有 c 头文件/源文件。
@@ -20,6 +22,8 @@ TODO: xfusion cpp 语言代码编程规范
   - [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
   - [MISRA C:2012 Amendment 3](https://www.misra.org.uk/app/uploads/2022/12/MISRA-C-2012-AMD3.pdf)
 
+---
+
 # xfusion 头文件/源文件模板
 
 xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模板，提交到 xfusion 的代码请应用 xfusion 头文件/源文件模板。
@@ -27,7 +31,6 @@ xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模�
 空白模板见`examples/get_started/xf_template/blank_xf_template/`目录内的`xf_template.h/xf_template.c`。说明见[模板的说明](#模板的说明)。
 
 模板说明实例见`examples/get_started/xf_template/main`内的`xf_template_source_detail.h/xf_template_source_detail.c`。详情见下文。
-
 
 # 使用自动格式化
 
