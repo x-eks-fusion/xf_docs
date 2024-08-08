@@ -84,7 +84,7 @@ function nav(): DefaultTheme.NavItem[] {
     },
     {
       text:"下载PDF",
-      link:"/pdf/xfusion-20240808-1132.pdf",
+      link:"/document/pdf/xfusion-20240808-1132.pdf",
     }
   ];
 }
