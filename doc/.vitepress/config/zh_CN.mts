@@ -82,6 +82,10 @@ function nav(): DefaultTheme.NavItem[] {
       text: "快速入门",
       link: "/zh_CN/get-started/",
     },
+    {
+      text:"下载PDF",
+      link:"/zh_CN/xfusion-zh_CN-20240808-1132.pdf",
+    }
   ];
 }
 
