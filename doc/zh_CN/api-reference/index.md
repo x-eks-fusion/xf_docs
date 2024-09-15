@@ -15,4 +15,6 @@ API 参考
 
 ---
 
-# 子文档
+## 子文档
+
+http://coral-zone.cc:31300/xfapidocs/

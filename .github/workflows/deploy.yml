@@ -27,8 +27,13 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      # - name: Build pdf
+      #   # 编译 pdf
+      #   run: yarn pdf
+
       - name: Build Site
-        run: yarn docs:build
+        # 编译文档
+        run: yarn build
 
       # 将文档产物提交到gh-pages分支
 

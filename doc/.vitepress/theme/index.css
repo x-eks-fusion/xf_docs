@@ -1,0 +1,14 @@
+@media print {
+    /* pdf 模式下隐藏 */
+    .navbar,
+    .sidebar,
+    .sidebar-mask,
+    .page-edit,
+    .VPNavBar,
+    .VPLocalNav,
+    .VPDocFooter,
+    .page-nav {
+        display: none;
+    }
+
+}
