@@ -1,72 +1,8 @@
-import { DefaultTheme, defineConfig } from "vitepress";
-
-export const zh_CN = defineConfig({
-    lang: "zh_CN",
-    title: "XFusion",
-    description: "为开发者提供统一且便于开发的接口的嵌入式系统",
-    themeConfig: {
-        nav: nav(),
-
-        sidebar: sidebarTOC(),
-
-        docFooter: {
-            prev: "上一页",
-            next: "下一页",
-        },
-
-        outline: {
-            label: "大纲",
-            level: [1, 6],
-        },
-
-        lastUpdated: {
-            text: "最后更新于",
-            formatOptions: {
-                dateStyle: "short",
-                timeStyle: "medium",
-            },
-        },
-
-        langMenuLabel: "多语言",
-        returnToTopLabel: "回到顶部",
-        sidebarMenuLabel: "菜单",
-        darkModeSwitchLabel: "主题",
-        lightModeSwitchTitle: "切换到浅色模式",
-        darkModeSwitchTitle: "切换到深色模式",
-    },
-});
-
-// 导航栏
-function nav(): DefaultTheme.NavItem[] {
-    return [
-        {
-            text: "首页",
-            link: "/",
-        },
-        {
-            text: "介绍",
-            link: "/zh_CN/introduction/",
-        },
-        {
-            text: "快速入门",
-            link: "/zh_CN/get-started/",
-        },
-        {
-            text: "下载PDF",
-            link: "/document/xfusion.pdf",
-        }
-    ];
-}
+import { DefaultTheme } from "vitepress";
 
 // 侧边栏大纲
 export function sidebarTOC(): DefaultTheme.SidebarItem[] {
     return [
-        {
-            text: "介绍",
-            collapsed: false,
-            link: "/zh_CN/introduction/",
-            items: sidebarIntroduction(),
-        },
         {
             text: "快速入门",
             collapsed: false,
@@ -91,13 +27,6 @@ export function sidebarTOC(): DefaultTheme.SidebarItem[] {
             link: "/zh_CN/contribute/",
             items: sidebarContribute(),
         },
-    ];
-}
-
-/* 介绍 */
-function sidebarIntroduction(): DefaultTheme.SidebarItem[] {
-    return [
-        /* 无子文档 */
     ];
 }
 
@@ -147,7 +76,7 @@ function sidebarAPIReference(): DefaultTheme.SidebarItem[] {
         {
             text: 'API 参考',
             link: '/xfapidocs/',
-            base: 'http://coral-zone.cc:31300',
+            base: 'http://coral-zone.cc',
             target: '_blank',
         },
     ];

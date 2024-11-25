@@ -1,18 +1,19 @@
 {
-  "scripts": {
-    "dev": "vitepress dev doc",
-    "build": "vitepress build doc",
-    "preview": "vitepress preview doc",
-    "pdf": "press-export-pdf export doc"
-  },
-  "dependencies": {
-    "vitepress": "1.0.1",
-    "vitepress-export-pdf": "^1.0.0",
-    "vue": "^3.4.27"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
-    "puppeteer": "^22.15.0"
-  }
+    "scripts": {
+        "dev": "vitepress dev",
+        "build": "vitepress build",
+        "preview": "vitepress preview",
+        "pdf": "press-export-pdf export ."
+    },
+    "dependencies": {
+        "vite-plugin-vuetify": "^2.0.4",
+        "vitepress": "1.4.1",
+        "vitepress-export-pdf": "^1.0.0",
+        "vuetify": "^3.7.4"
+    },
+    "devDependencies": {
+        "@iconify-json/bi": "^1.2.1",
+        "@iconify-json/mdi": "^1.2.1",
+        "unocss": "^0.64.0"
+    }
 }

@@ -5,19 +5,11 @@
 
 如需本地预览效果,请确保已经安装(`nodejs >= 18`)环境
 
-```shell
-# 安装依赖
-npm install
-
-# 在开发模式中查看效果
-npm run docs:dev
-
-# 编译为静态文件
-npm run docs:build
-
-# 在开发模式中查看效果
-npm run docs:preview
-```
+| 工具 | 安装依赖          | 在开发模式中查看效果 | 编译为静态文件  | 在开发模式中查看效果 |
+| ---- | ----------------- | -------------------- | --------------- | -------------------- |
+| npm  | `npm run install` | `npm run dev`        | `npm run build` | `npm run preview`    |
+| pnpm | `pnpm`            | `pnpm dev`           | `pnpm build`    | `pnpm preview`       |
+| yarn | `yarn`            | `yarn dev`           | `yarn build`    | `yarn preview`       |
 
 
 ## tips
