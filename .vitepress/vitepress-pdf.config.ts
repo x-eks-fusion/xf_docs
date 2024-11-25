@@ -1,22 +1,7 @@
 import fs from "fs";
 import type { DefaultTheme } from 'vitepress';
 import { defineUserConfig } from 'vitepress-export-pdf';
-
-import userConfig from './config/index.mjs';
-import { sidebarTOC } from './config/zh_CN.mjs';
-
-function extractLinksFromConfig(config: DefaultTheme.Config) {
-    const links: string[] = [];
-
-    if (config.sidebar?.length) {
-        for (const key in config.sidebar) {
-            extractLinks(config.sidebar[key]);
-        }
-    } else {
-    }
-
-    return links;
-}
+import { sidebarTOC } from './sidebar';
 
 function extractLinksFromDir(dirPath: string, arrayOfFiles: string[] = []) {
     const files = fs.readdirSync(dirPath);
@@ -29,27 +14,28 @@ function extractLinksFromDir(dirPath: string, arrayOfFiles: string[] = []) {
         } else {
             // 如果是文件，则添加到数组中
             let file_name = `${dirPath}/${file}`.replace(".md", ".html");
-            arrayOfFiles.push(file_name.replace("./doc/", "/document/"));
+            // arrayOfFiles.push(file_name.replace("./doc/", "/document/"));
+            arrayOfFiles.push(file_name);
         }
     });
 
     return arrayOfFiles;
 }
-const all_files = extractLinksFromDir("./doc/zh_CN", []);
+const all_files = extractLinksFromDir(".", []);
 const side_links: string[] = [];
 const exc_files: string[] = [];
 function extractLinks(sidebar: DefaultTheme.SidebarItem[]) {
     for (const item of sidebar) {
         if (item.items) {
             if (item.link && item.base == undefined) {
-                side_links.push(`/document${item.link}index.html`);
+                side_links.push(`${item.link}index.html`);
             }
             extractLinks(item.items);
         } else if (item.link) {
             if (item.link.endsWith("/")) {
-                side_links.push(`/document${item.link}index.html`);
+                side_links.push(`${item.link}index.html`);
             } else {
-                side_links.push(`/document${item.link}.html`);
+                side_links.push(`${item.link}.html`);
             }
         }
     }
@@ -67,12 +53,12 @@ for (const i of all_files) {
 
 export default defineUserConfig({
     outFile: 'xfusion.pdf',
-    outDir: 'doc/public',
+    outDir: 'public',
     pdfOptions: {
         format: 'A4',
         printBackground: true,
-        displayHeaderFooter: false,
-        outline: true,
+        displayHeaderFooter: true,
+        outline: false,
         margin: {
             bottom: 60,
             left: 25,
@@ -81,7 +67,6 @@ export default defineUserConfig({
         },
     },
     routePatterns: [
-        '!**/en/**',
         ...exc_files,
     ],
     sorter: (pageA, pageB) => {

@@ -1,0 +1,123 @@
+body {
+    background: #FAFAFA;
+}
+
+/* page 404 ----------------------------------------------------------------- */
+/* 404 页面内容 */
+/* page 404 ----------------------------------------------------------------- */
+.VPContent:has(.NotFound) {
+    background: #fff;
+}
+
+.Layout:has(.NotFound)>.VPNav {
+    display: none;
+}
+
+.NotFound .code {
+    margin-top: 20vh;
+}
+
+/* aside -------------------------------------------------------------------- */
+/* 右侧边栏内容 */
+/* aside -------------------------------------------------------------------- */
+.aside-container {
+    padding-top: 50px !important;
+}
+
+.aside-curtain,
+.aside .outline-title {
+    display: none;
+}
+
+.aside .outline-marker {
+    margin-top: -1.6rem;
+    left: -5px;
+    height: 9px;
+    width: 9px;
+    border-radius: 9px;
+    background: #3B50F2;
+}
+
+.VPDocAsideOutline {
+    padding: 2rem;
+    background: #fff;
+    border-radius: 1rem;
+}
+
+/* nav ---------------------------------------------------------------------- */
+/* 顶部栏内容 */
+/* nav ---------------------------------------------------------------------- */
+.VPDoc {
+    padding-top: 3rem !important;
+}
+
+/* 顶部栏下方，文章上方 */
+.VPNavBar>.wrapper>.container>.content,
+.VPNavBar>.divider {
+    display: none;
+}
+
+/* sidebar ------------------------------------------------------------------ */
+/* 左侧边栏 */
+/* sidebar ------------------------------------------------------------------ */
+
+/* 侧边栏字体 */
+.VPNavBarTitle>.title {
+    display: block;
+    text-align: center;
+    height: 6rem;
+    font-size: 2.5rem;
+    line-height: 6rem;
+    font-weight: normal;
+}
+
+:is(.vp-external-link-icon, .vp-doc a[href*='://'], .vp-doc a[target='_blank']):not(.no-icon)::after {
+    --icon: url(./icon/link.svg) !important;
+    mask-image: var(--icon);
+    width: 14px;
+    height: 14px;
+    /* background-image: url(./icon/link.svg) cover; */
+}
+
+.VPSidebar {
+    background: #fff !important;
+    /* scrollbar-width: thin; */
+}
+
+.VPSidebar>.curtain {
+    background: #fff;
+}
+
+.group+.group {
+    border-top: 1px solid #EEF0FF !important;
+}
+
+.VPSidebarItem.level-1:has(.VPSidebarItem.level-2.is-active)>.item {
+    filter: saturate(18);
+}
+
+.VPSidebarItem.level-1:has(.VPSidebarItem.level-2.is-active):hover>.item {
+    filter: saturate(0);
+}
+
+/* 子栏效果 */
+.VPSidebarItem.level-2 .indicator {
+    margin-top: 0.4rem;
+    left: -20.5px;
+    height: 8px;
+    width: 8px;
+    border-radius: 8px;
+    background: #F2F4FF;
+}
+
+
+.VPSidebarItem.level-2 .VPLink {
+    margin: 0 0 0 -8px;
+    padding: 0 0 0 8px;
+    border-radius: 5px;
+}
+
+.VPSidebarItem.level-2.is-active>.item>.VPLink,
+.VPSidebarItem.level-3.is-active>.item>.VPLink {
+    background: #F2F4FF;
+}
