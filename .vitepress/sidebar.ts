@@ -157,6 +157,7 @@ function sidebarPorting(): DefaultTheme.SidebarItem[] {
         },
         {
             text: "组件移植",
+            link: "/zh_CN/porting/porting_component_support",
         },
     ];
 }

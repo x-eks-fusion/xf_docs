@@ -39,7 +39,7 @@
         <p style="font-size: 14px; color: #666; margin: 5px 0 0 0;">了解XFusion的运作原理</p>
     </div>
   </a>
-  <a href="zh_CN/get-started/" style="text-decoration: none;">
+  <a href="zh_CN/porting/" style="text-decoration: none;">
     <div style="width: 240px; height: 160px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
         <img src="/image/porting.png" alt="Icon" style="width: 50px; height: 50px; margin-bottom: 15px;">
         <h3 style="font-size: 18px; color: #333; margin: 0;">移植指南</h3>
