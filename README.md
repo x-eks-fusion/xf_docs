@@ -5,6 +5,8 @@
 
 如需本地预览效果,请确保已经安装(`nodejs >= 18`)环境
 
+1. 安装pnpm
+
 | 工具 | 安装依赖          | 在开发模式中查看效果 | 编译为静态文件  | 在开发模式中查看效果 |
 | ---- | ----------------- | -------------------- | --------------- | -------------------- |
 | npm  | `npm run install` | `npm run dev`        | `npm run build` | `npm run preview`    |
@@ -30,3 +32,14 @@ vitepress会自动导入 config文件或者`config`文件夹下的`index.mts`文
 请保证 github `{path}/settings/actions` 页面内单选项全部选择顶部第一个。
 
 在第一次生成后，将 `gh-pages` 分支(详见配置 `deploy.yml`) 设为 GitHub pages，后续页面更新由 actions 自动完成。
+
+
+### 样式表配置
+
+样式表在路径：.vitepress/theme/assets/index.css
+如需要改变样式，自行修改
+
+
+### 修改左侧目录结构
+
+通过修改路径 .vitepress/sidebar.ts
