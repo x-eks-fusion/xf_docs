@@ -55,7 +55,7 @@ watch(
                         下载pdf
                     </v-btn>
                 </a>
-                <a href="https://github.com/coralZone/document" target="_blank">
+                <a href="https://github.com/x-eks-fusion/xf_docs" target="_blank">
                     <v-btn class="capitalize rounded-2!">
                         <img src="../assets/icon/github.svg"></img>
                         github
