@@ -6,7 +6,7 @@
 
 Fusion，意为融合、联合，且有核聚变的意思，表达了 XFusion 的愿景：让分散的平台融合在一起，凝聚出更大的能量，更好地支持开发者实现他们的想法。
 
-![layer](../../public/image/xfusion_layer.png)
+![layer](/image/xfusion_layer.png)
 
 # 特性
 
@@ -71,12 +71,12 @@ Fusion，意为融合、联合，且有核聚变的意思，表达了 XFusion �
 
 # 开源证书
 
-> [!IMPORTANT] Apache License 2.0
+> [!TIP] Apache License 2.0
 > XFusion 及其子模块全部使用 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) 协议
 
 # 存储库布局
 
-> [!IMPORTANT] 重要
+> [!TIP] 重要
 > 所有仓库均能独立移植
 
 - github:
