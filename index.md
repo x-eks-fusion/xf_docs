@@ -1,110 +1,65 @@
-# 介绍
+<style>
+.card:hover {
+    transform: scale(1.05);
+}
+</style>
 
-本文简要 xfusion 的特性与硬件要求。
 
----
+<div style="text-align: center;">
+  <h1 style="font-size: 3.5em;">欢迎来到 <span style="
+      background: linear-gradient(to right, #3b50f2, #521e79);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    ">XFusion</span> 文档！</h1>
+</div>
 
-**阅读对象：**
+<a href="https://coral-zone.cc" style="text-decoration: none;">
+  <div style="width: 100%; display: flex; justify-content: center; align-items: center; margin: 0; padding-top: 50px; padding-bottom: 50px;">
+      <img src="/image/icon.svg" alt="icon" style="width: 200px; height: auto;">
+  </div>
+</a>
 
-- 想要添加新的平台或芯片支持/外设驱动支持的贡献者。
-
----
-
-# xfusion
-
-**XFusion**，来自 **X(Embedded Kits System)** —— 嵌入式套件系统，是一个融合多个嵌入式平台的软件开发工具包(SDK)，为开发者提供**统一且便于开发的嵌入式开发环境**。
-
-开发者基于 XFusion 开发应用时，无需花过多时间及精力在移植（像 RTOS），基础驱动、基础功能的实现等与平台底层相关的工作，可以更专注于应用功能的设计与实现，并且，在其上开发的应用，可以在多平台上快速迁移、切换。(**一次开发，多端部署**)
-
-Fusion，意为融合、联合，且有核聚变的意思，表达了 XFusion 的愿景：让分散的平台融合在一起，凝聚出更大的能量，更好地支持开发者实现他们的想法。
-
-TODO 这里放 xfusion 整体框架图
-
-# 特性
-
-::: warning TODO
-可考虑增加特征集的描述
-:::
-https://nuttx.apache.org/docs/latest/introduction/about.html#feature-set
-
-- 丰富强大的组件库；
-- xf_build 跨平台构建工具；
-- xf_log log 打印调试工具；
-- xf_task 协作式调度器；
-- xf_hal 基础硬件抽象层；
-- xf_heap 内存管理工具；
-- xf_osal 系统抽象层；
-- xf_utils 基础功能；
-- 全部由 C 编写完成，遵从 C99 语法；
-- 丰富详实的例程；
-- 采用 Apache2.0 开源协议；
-- 支持导出原生工程，可以使用 keil 等原生 IDE 开发调试；
-- 支持模拟器仿真，可以无硬件依托进行开发（待开发）。
-
-# 硬件要求
-
-- 16、32 或 64 位微控制器或处理器。
-- 建议使用 >16 MHz 时钟速度。
-- 闪存/ROM：
-
-  \> 64 kB 用于非常重要的组件 (> 建议使用 180 kB)。
-
-- RAM:
-
-  - 静态 RAM 使用量：~2 kB，取决于使用的功能和对象类型。
-  - 堆: > 2kB (> 建议使用 8 kB 以上)。
-
-- C99 或更新的编译器。
-
-以下结果为 xfusion 基础组件大小，排除了对接部分的大小，对接部分大小见`基础组件大小详情`​。
-
-| 描述     | 优化等级 | flash(bytes) | ram(bytes) |
-| -------- | -------- | ------------ | ---------- |
-| 空间优先 | Os       | 4,209        | 385        |
-|          | Og       | 4,742        | 385        |
-| 调试     | Og       | 15,043       | 4,484      |
-
-**空间优先**
-
-- 关闭 log
-- 关闭 xf_heap 静态数组(静态内存池设为 1 byte)
-
-**调试**
-
-- 开启 log
-- xf_heap 静态数组大小设为 4KB
-
-# 目前支持的平台
-
-1. esp32 (基于 esp-idf v5.0)
-2. ws63 (HI3863 芯片)
-
-后续计划支持：
-
-2. linux
-3. esp32c3
-4. stm32
-
-# 开源证书
-
-xfusion 使用 Apache License 2.0 开源许可协议开源。
-
-xfusion 中用到的其他开源项目声明如下：
-
-::: warning TODO
-其他开源项目声明
-:::
-# 存储库布局
-
-::: warning TODO
-存储库布局
-:::
-# 版本说明
-
-::: warning TODO
-补全版本说明
-:::
-# FAQ
-::: warning TODO
-补全 FAQ
-:::
+<div style="margin-bottom: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; justify-items: center;" >
+  <a href="zh_CN/get-started/" style="text-decoration: none;">
+    <div class="card" style="width: 220px; height: 160px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+        <img src="/image/get_start.png" alt="Icon" style="width: 50px; height: 50px; margin-bottom: 15px;">
+        <h3 style="font-size: 18px; color: #333; margin: 0;">快速入门</h3>
+        <p style="font-size: 14px; color: #666; margin: 5px 0 0 0;">快速上手 XFusion</p>
+    </div>
+  </a>
+  <a href="zh_CN/api-reference/" style="text-decoration: none;">
+    <div class="card" style="width: 220px; height: 160px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+        <img src="/image/api-reference.png" alt="Icon" style="width: 50px; height: 50px; margin-bottom: 15px;">
+        <h3 style="font-size: 18px; color: #333; margin: 0;">API参考</h3>
+        <p style="font-size: 14px; color: #666; margin: 5px 0 0 0;">接口的查询手册</p>
+    </div>
+  </a>
+  <a href="zh_CN/insight/" style="text-decoration: none;">
+    <div class="card" style="width: 220px; height: 160px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+        <img src="/image/insight.png" alt="Icon" style="width: 50px; height: 50px; margin-bottom: 15px;">
+        <h3 style="font-size: 18px; color: #333; margin: 0;">深入了解</h3>
+        <p style="font-size: 14px; color: #666; margin: 5px 0 0 0;">了解 XFusion 的运作原理</p>
+    </div>
+  </a>
+  <a href="zh_CN/porting/" style="text-decoration: none;">
+    <div class="card" style="width: 220px; height: 160px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+        <img src="/image/porting.png" alt="Icon" style="width: 50px; height: 50px; margin-bottom: 15px;">
+        <h3 style="font-size: 18px; color: #333; margin: 0;">移植指南</h3>
+        <p style="font-size: 14px; color: #666; margin: 5px 0 0 0;">移植到一个全新的芯片</p>
+    </div>
+  </a>
+  <a href="zh_CN/contribute/" style="text-decoration: none;">
+    <div class="card" style="width: 220px; height: 160px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+        <img src="/image/contribute.png" alt="Icon" style="width: 50px; height: 50px; margin-bottom: 15px;">
+        <h3 style="font-size: 18px; color: #333; margin: 0;">贡献指南</h3>
+        <p style="font-size: 14px; color: #666; margin: 5px 0 0 0;">给 XFusion 提供贡献</p>
+    </div>
+  </a>
+  <a href="zh_CN/FAQ/" style="text-decoration: none;">
+    <div class="card" style="width: 220px; height: 160px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+        <img src="/image/FAQ.png" alt="Icon" style="width: 50px; height: 50px; margin-bottom: 15px;">
+        <h3 style="font-size: 18px; color: #333; margin: 0;">FAQ</h3>
+        <p style="font-size: 14px; color: #666; margin: 5px 0 0 0;">常见的小问题</p>
+    </div>
+  </a>
+</div> 

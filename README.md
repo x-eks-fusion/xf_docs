@@ -55,3 +55,14 @@ vitepress会自动导入 config文件或者 `config` 文件夹下的 `index.mts`
 若使用 github actions 配合 GitHub 自动生成页面，请保证 github `{path}/settings/actions` 页面内单选项全部选择顶部第一个。
 
 在第一次生成后，将 `gh-pages` 分支(详见配置 `deploy.yml`) 设为 GitHub pages，后续页面更新由 actions 自动完成。
+
+
+### 样式表配置
+
+样式表在路径：.vitepress/theme/assets/index.css
+如需要改变样式，自行修改
+
+
+### 修改左侧目录结构
+
+通过修改路径 .vitepress/sidebar.ts

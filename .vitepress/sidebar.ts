@@ -17,15 +17,27 @@ export function sidebarTOC(): DefaultTheme.SidebarItem[] {
         },
         {
             text: "深入了解",
-            collapsed: false,
+            collapsed: true,
             link: "/zh_CN/insight/",
             items: sidebarInsight(),
         },
         {
+            text: "移植指南",
+            collapsed: true,
+            link: "/zh_CN/porting/",
+            items: sidebarPorting(),
+        },
+        {
             text: "贡献指南",
-            collapsed: false,
+            collapsed: true,
             link: "/zh_CN/contribute/",
             items: sidebarContribute(),
+        },
+        {
+            text: "FAQ",
+            collapsed: true,
+            link: "/zh_CN/FAQ/",
+            items: sidebarFAQ(),
         },
     ];
 }
@@ -34,37 +46,60 @@ export function sidebarTOC(): DefaultTheme.SidebarItem[] {
 function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
     return [
         {
+            text: "介绍",
+            link: "/zh_CN/get-started/introduction",
+        },
+        {
             text: "选择一个平台开始",
             collapsed: true,
             items: [
+                {
+                    text: "从 esp32 开始",
+                    link: "/zh_CN/get-started/starting_with_esp32",
+                },
                 {
                     text: "从 ws63 开始",
                     link: "/zh_CN/get-started/starting_with_ws63",
                 },
                 {
-                    text: "从 esp32 开始",
-                    link: "/zh_CN/get-started/starting_with_esp32",
+                    text: "从 bs21 开始",
+                    link: "/zh_CN/get-started/starting_with_bs21",
                 },
             ],
         },
         {
-            text: "实用技巧",
-            link: "/zh_CN/get-started/practical_tips",
-        },
-        {
-            text: "工程相关",
-            link: "/zh_CN/get-started/project/",
+            text: "环境搭建",
             collapsed: true,
             items: [
                 {
-                    text: "新建工程与添加用户组件",
-                    link: "/zh_CN/get-started/project/new_project_and_user_component",
+                    text: "linux 环境搭建",
+                    link: "zh_CN/get-started/preparation_with_linux.md",
                 },
                 {
-                    text: "安装组件",
-                    link: "/zh_CN/get-started/project/install_external_components",
+                    text: "windows 环境搭建",
+                    link: "zh_CN/get-started/preparation_with_windows.md",
                 },
             ],
+        },
+        {
+            text: "编译第一个工程",
+            link: "/zh_CN/get-started/build_first_project",
+        },
+        {
+            text: "添加自己的代码",
+            link: "/zh_CN/get-started/add_your_owm_code",
+        },
+        {
+            text: "安装一个组件",
+            link: "/zh_CN/get-started/install_a_component",
+        },
+        {
+            text: "使用 vscode 插件",
+            link: "/zh_CN/get-started/use_vscode_plugin",
+        },
+        {
+            text: "xf 命令参考",
+            link: "/zh_CN/get-started/xf_command_reference",
         },
     ];
 }
@@ -72,9 +107,14 @@ function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
 /* API 参考 */
 function sidebarAPIReference(): DefaultTheme.SidebarItem[] {
     return [
-        /* TODO  */
         {
-            text: 'API 参考',
+            text: '开发 API 参考',
+            link: '/xfapidocs/',
+            base: 'http://coral-zone.cc',
+            target: '_blank',
+        },
+        {
+            text: '移植 API 参考',
             link: '/xfapidocs/',
             base: 'http://coral-zone.cc',
             target: '_blank',
@@ -94,35 +134,30 @@ function sidebarInsight(): DefaultTheme.SidebarItem[] {
             link: "/zh_CN/insight/xfusion_build_process",
         },
         {
-            text: "xfusion 运行流程",
-            link: "/zh_CN/insight/xfusion_run_process",
+            text: "xf build 构建脚本",
+            link: "/zh_CN/insight/xf_build_script",
+        },
+    ];
+}
+
+/* 移植指南 */
+function sidebarPorting(): DefaultTheme.SidebarItem[] {
+    return [
+        {
+            text: "平台工程移植",
         },
         {
-            text: "组件开发指南",
-            link: "/zh_CN/insight/component_development_guide",
+            text: "构建对接",
         },
         {
-            text: "移植指南",
-            link: "/zh_CN/insight/porting/",
-            collapsed: true,
-            items: [
-                {
-                    text: "平台移植示例",
-                    link: "/zh_CN/insight/porting/porting_new_platform_support",
-                },
-                {
-                    text: "组件移植示例",
-                    link: "/zh_CN/insight/porting/porting_component_support",
-                },
-                {
-                    text: "构建对接",
-                    link: "/zh_CN/insight/porting/porting_xfusion_build",
-                },
-                {
-                    text: "外设对接（XF_HAL）",
-                    link: "/zh_CN/insight/porting/porting_xfusion_hal",
-                },
-            ],
+            text: "外设对接",
+        },
+        {
+            text: "其余对接",
+        },
+        {
+            text: "组件移植",
+            link: "/zh_CN/porting/porting_component_support",
         },
     ];
 }
@@ -146,5 +181,11 @@ function sidebarContribute(): DefaultTheme.SidebarItem[] {
             text: "Pull Request 提交步骤",
             link: "/zh_CN/contribute/pull_request_process",
         },
+    ];
+}
+
+/* FAQ*/
+function sidebarFAQ(): DefaultTheme.SidebarItem[] {
+    return [
     ];
 }

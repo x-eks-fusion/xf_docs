@@ -1,20 +1,14 @@
 # API 参考
 
-::: info 提示
+> [!NOTE] 作者
+> ccb5
 
-API 参考
-:::
+本文主要介绍 xfusion 的应用层接口和移植层的接口
 
-本文主要介绍 xfusion 包含 xf_hal、xf_utils、xf_task 等组件在内的系统组件。
-
----
-
-**阅读对象：**
-
-- 想要深入了解 xfusion 框架的用户以及移植开发者、组件开发者。
 
 ---
 
-## 子文档
+# 目录
 
-http://coral-zone.cc:31300/xfapidocs/
+- [开发 API 参考](https://coral-zone.cc/xfapidocs/)
+- [移植 API 参考]()
