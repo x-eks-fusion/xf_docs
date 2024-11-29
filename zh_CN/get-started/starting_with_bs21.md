@@ -3,6 +3,8 @@
 > [!NOTE] 作者
 > kirto
 
+本文主要介绍如何搭建 BS21 的 XFusion 开发环境
+
 # 关于 BS21
 
 bs21 是一款高度集成 2.4GHz SoC BLE&SLE 芯片，集成 BLE5.4/SLE1.0 和

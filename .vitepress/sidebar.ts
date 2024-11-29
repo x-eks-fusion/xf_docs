@@ -135,7 +135,7 @@ function sidebarInsight(): DefaultTheme.SidebarItem[] {
         },
         {
             text: "xf build 构建脚本",
-            link: "/zh_CN/insight/xfusion_run_process",
+            link: "/zh_CN/insight/xf_build_script",
         },
     ];
 }

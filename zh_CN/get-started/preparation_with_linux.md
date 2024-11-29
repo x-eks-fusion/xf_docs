@@ -3,6 +3,8 @@
 > [!NOTE] 作者
 > kirto
 
+本文主要介绍在 Linux 环境中如何搭建 XFusion 开发环境
+
 > [!TIP] 环境搭建
 > 具体搭建linux还是windows环境，需要看SDK可以在windows还是linux上开发
 
@@ -26,7 +28,7 @@ sudo ln -s /usr/bin/python3 /user/bin/python
 sudo apt-get git
 ```
 
-# 安装 xfusion
+# 安装 XFusion
 
 1. 克隆仓库
   ```bash

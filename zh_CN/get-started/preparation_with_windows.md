@@ -3,6 +3,8 @@
 > [!NOTE] 作者
 > kirto
 
+本文主要介绍在 Windows 环境中如何搭建 XFusion 开发环境
+
 > [!TIP] 环境搭建
 > 具体搭建linux还是windows环境，需要看SDK可以在windows还是linux上开发
 
