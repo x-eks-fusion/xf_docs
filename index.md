@@ -1,12 +1,33 @@
-<style>
+<style> 
 .card:hover {
     transform: scale(1.05);
 }
+
+ .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 默认 3 列布局 */
+    gap: 10px;
+    justify-items: center;
+    margin-bottom: 48px;
+  }
+
+  /* 响应式调整 */
+  @media screen and (max-width: 1024px) {
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr); /* 改为 2 列布局 */
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .grid-container {
+      grid-template-columns: repeat(1, 1fr); /* 改为 1 列布局 */
+    }
+  }
 </style>
 
 
 <div style="text-align: center;">
-  <h1 style="font-size: 3.5em;">欢迎来到 <span style="
+  <h1 style="font-size: 3.5em;line-height: 1.2;">欢迎来到 <span style="
       background: linear-gradient(to right, #3b50f2, #521e79);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -19,7 +40,7 @@
   </div>
 </a>
 
-<div style="margin-bottom: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; justify-items: center;" >
+<div class="grid-container" >
   <a href="zh_CN/get-started/" style="text-decoration: none;">
     <div class="card" style="width: 220px; height: 160px; background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
         <img src="/image/get_start.png" alt="Icon" style="width: 50px; height: 50px; margin-bottom: 15px;">
