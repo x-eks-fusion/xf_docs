@@ -14,17 +14,18 @@
 
 # 目前需要对接的基础功能有
 
-1. XFusion 自动初始化
 1. xf_init
+1. XFusion 的调用
 1. xf_log
+1. xf_sys
 
 # 对接流程
 
-## 1. XFusion 自动初始化对接：
+## 1. xf_init 对接：
 
-> 目前已实现调用的方法统一，即用户只需调用同名的方法即可
+> 目前 xf_init 的自动初始化已实现调用的方法统一，即用户只需调用同名的方法即可
 
-- 目前 XFusion 自动初始化实现方法有 3 种，仅需选一种方式进行对接，然后 menuconfig 配置成对应的方法即可：
+- 目前 xf_init 的自动初始化实现方法有 3 种，仅需选一种方式进行对接，然后 menuconfig 配置成对应的方法即可：
   1. (**section 属性**)**(GNU 特性)** : 通过 `section` 将自动初始化的函数的符号导出指定的段, 实现依赖倒置。
   2. (**constructor 属性**)**(GNU 特性)** : 将自动初始化的函数的符号, 通过 `constructor` 挂载到内置初始化链表, 实现在调用时初始化(延迟初始化), 同时也实现依赖倒置。
   3. (**显式注册表**) : 显式调用注册函数, 此时需要手动修改注册表。此时 `xf_init` 也会依赖需要初始化的组件, 通常不推荐使用。
@@ -41,11 +42,8 @@
 
    /* 在此插入 xf_auto_init 段 */
    . = ALIGN(4);                    /* 32 位使用 4 字节对齐方式，64 位使用 8 字节对齐方式 */
-   __xf_init_start = .;             /* 此处为 xf_auto_init 段起始 */
-
    /* .xf_auto_init* : 通配 .xf_auto_init* 的符号 ; SORT: 对符号排序; KEEP : 确保这些段不会优化掉 (即使没被显式引用) */
    KEEP(*(SORT(.xf_auto_init*)))
-   __xf_init_end = .;               /* 此处为 xf_auto_init 段结尾 */
    . = ALIGN(4);                    /* 32 位使用 4 字节对齐方式，64 位使用 8 字节对齐
 
     /* 省略 */
@@ -60,27 +58,26 @@
 
 - 略，不推荐使用
 
-## 2. xf_init 对接：
+## 2. XFusion 的调用
 
-- 目前 xf_init 仅需要对接两方法
+- XFusion 需由平台侧工程调用才能正常运行，目前需要被调用的方法有 2 个 :
 
-  1. **_void xfusion_init(void)_** : 初始化 xfusion，包含 log 初始化，自动初始化等。需要放在较早被调用的位置，且在 "xfusion_run" 的调用前。
+  1. **void xfusion_init(void)** : 初始化 XFusion ，包含 log 初始化，自动初始化等。需要放在较早被调用的位置，且在 "xfusion_run" 的调用前。
 
-  2. **_void xfusion_run(void)_** : 运行 xfusion。需要将该函数放到循环里面调用。
+  2. **void xfusion_run(void)** : 运行 XFusion 。需要将该函数放到循环里面调用。
 
-- 例 : (tasks_xf_premain 可放在平台 main 函数中或者在创建的线程中执行)
+- 例 : main 函数中调用 "xfusion_init" 与 "xfusion_run" 方法。 (也可自行创建的线程进行调用)
 
   ```C
 
-  static void *tasks_xf_premain(const char *arg)
+  void main(void)
   {
-      unused(arg);
       xfusion_init();
       while (1)
       {
           xfusion_run();
       }
-      return NULL;
+      return;
   }
 
   ```
@@ -89,9 +86,9 @@
 
 - 目前 xf_log 仅对接一个方法：
 
-  1. ***int xf_log_register_obj(xf_log_out_t out_func, void *user_args)\***
+  1. ***int xf_log_register_obj(xf_log_out_t out_func, void *user_args)***
 
-  - 说明：注册 log 的后端 (log 最终输出到哪里)，其最大值受到 XF_LOG_OBJ_MAX 的限制。
+  - 描述：注册 log 的后端 (log 最终输出到哪里)，其最大值受到 XF_LOG_OBJ_MAX 的限制。
 
   - 参数说明：
 
@@ -107,9 +104,9 @@
 
     1. 实现 **xf_log_out_t** 类型的后端函数 (如 printf 、串口 等)。
 
-    2. 实现另一个函数 (假设为 : "port_log_init" )，其实现为 : 通过 "**xf_log_register_obj**" 将实现后端函数注册至 xf_log 实现对接。
+    1. 实现另一个函数 (假设为 : "port_log_init" )，其实现为 : 通过 "**xf_log_register_obj**" 将实现后端函数注册至 xf_log 实现对接。
 
-    3. 通过 **XF_INIT_EXPORT_SETUP** 将 "port_log_init" 加入自动初始化列表 (注意：需包含初始化的头文件 "xf_init.h" ， 否则以上操作无效)。
+    1. 通过 **XF_INIT_EXPORT_SETUP** 将 "port_log_init" 加入自动初始化列表 (注意：需包含初始化的头文件 "xf_init.h" ， 否则以上操作无效)。
 
     - 例 "port_xf_log.c" 文件内容 :
 
@@ -124,7 +121,7 @@
         if ((NULL == str) || (0 == len)) {
             return;
         }
-        printk("%.*s", (int)len, str);
+        print("%.*s", (int)len, str);
     }
 
     static int port_log_init(void)
@@ -138,6 +135,82 @@
 
   - 验证 : 编译带有 xf_log 日志输出，且日志等级设置正常的工程，运行查看输出日志结果进行验证。
 
+## xf_sys 对接
+
+- xf_sys 目前可对接的功能有 : (看情况进行对接)
+
+1. 系统时间 (xf_sys_time) (强烈建议对接)
+
+1. 系统看门狗 (xf_sys_watchdog)
+
+1. 系统重启
+
+1. 中断开启与关闭
+
+### 系统时间对接
+
+- 目前只需要调用 "**xf_sys_time_init**" 来注册系统时间微妙级 (us)的时间戳获取的方法即可。
+
+- 对接流程 :
+
+  1. 实现 "**xf_us_t (\*get_us)(void)**" 类型的微妙级时间戳获取函数。
+
+  1. 实现另一个函数 (假设为 : "port_sys_init" )，其实现为 : 通过 "**xf_sys_time_init**" 将实现的微妙级时间戳获取函数注册至 xf_sys 实现对接。
+
+  1. 通过 **XF_INIT_EXPORT_BOARD** 将 "port_sys_init" 加入自动初始化列表 (注意：需包含初始化的头文件 "xf_init.h" ， 否则以上操作无效)。
+
+- 例 :
+
+  ```C
+
+  #include "xf_sys.h"
+  #include "xf_init.h"
+
+  #include <sys/time.h>
+  #include <time.h>
+
+  static xf_us_t _port_xf_sys_get_us(void)
+  {
+      struct timespec current_time;
+      clock_gettime(CLOCK_MONOTONIC, &current_time);
+
+      return current_time.tv_sec*(1000*1000) + current_time.tv_nsec/1000;
+  }
+
+  static int port_sys_init()
+  {
+      xf_sys_time_init(_port_xf_sys_get_us);
+      return XF_OK;
+  }
+
+  XF_INIT_EXPORT_BOARD(port_sys_init);
+
+  ```
+
+### 系统看门狗对接
+
+- 目前可对接的系统看门狗接口有:
+
+  1. **_xf_err_t xf_sys_watchdog_enable(void)_** : 系统看门狗开启
+
+  1. **_xf_err_t xf_sys_watchdog_disable(void)_** : 系统看门狗关闭
+
+  1. **_xf_err_t xf_sys_watchdog_kick(void)_** : 系统看门狗喂狗操作
+
+### 系统重启对接
+
+- 目前可对接的系统重启接口有 :
+
+  1. **_void xf_sys_reboot(void)_** : 软件系统重启
+
+### 系统中断对接
+
+- 目前可对接的系系统中断接口有 :
+
+  1. **_xf_err_t xf_sys_interrupt_enable(void)_** : 系统中断开启
+
+  1. **_xf_err_t xf_sys_interrupt_disable(void)_** : 系统中断关闭
+
 # 至此，基础功能对接完成。
 
-- 后面根据需要可对接 xf_sys 、 xf_osal 等其他部分。
+- 后面根据需要可对接 xf_osal 、 xf_ble 、 xf_sle 、xf_wifi 、 xf_netif 等其他部分。
