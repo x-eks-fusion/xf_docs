@@ -1,32 +1,23 @@
 # 编码风格指南
 
-本文说明 xfusion 编码所使用的风格。
+> [!NOTE] 作者
+> ccb5
 
-请遵守 xfusion 编码风格，统一编码风格可以减少因为风格转换带来的阅读成本。
+本文说明 XFusion 编码所使用的风格。
 
----
+请遵守 XFusion 编码风格，统一编码风格可以减少因为风格转换带来的阅读成本。
 
-**适用范围：**
+**前置准备：**
 
-- *外部库以外*的所有 c 头文件/源文件。
-
-TODO: xfusion cpp 语言代码编程规范
-
-**阅读对象：**
-
-- 所有 c 语言代码贡献者。
-
-**非目标：**
-
-- c 语言代码编程规范。本文只说明风格 xfusion 编码风格，编程规范（如如何提高代码安全性）不是本文目标，可以查阅：
+- c 语言代码编程规范。本文只说明风格 XFusion 编码风格，编程规范（如如何提高代码安全性）不是本文目标，可以查阅：
   - [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
   - [MISRA C:2012 Amendment 3](https://www.misra.org.uk/app/uploads/2022/12/MISRA-C-2012-AMD3.pdf)
 
 ---
 
-# xfusion 头文件/源文件模板
+# XFusion 头文件/源文件模板
 
-xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模板，提交到 xfusion 的代码请应用 xfusion 头文件/源文件模板。
+XFusion 目前已经提供了 XFusion 内 c 语言代码头文件/源文件模板，提交到 XFusion 的代码请应用 XFusion 头文件/源文件模板。
 
 空白模板见`examples/get_started/xf_template/blank_xf_template/`目录内的`xf_template.h/xf_template.c`。说明见[模板的说明](#模板的说明)。
 
@@ -42,7 +33,7 @@ xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模�
 
 # 模板的说明
 
-该小节介绍 xfusion 的 c 语言头文件/源文件模板的组成部分。
+该小节介绍 XFusion 的 c 语言头文件/源文件模板的组成部分。
 
 只需了解模板各个部分的作用即可，需要使用时请从`examples/get_started/xf_template/blank_xf_template/`目录内复制出来并修改。
 
@@ -65,7 +56,7 @@ xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模�
   /**
    * @file xf_template.h
    * @author your name (you@domain.com)
-   * @brief xfusion 头文件空白模板。
+   * @brief XFusion 头文件空白模板。
    * @version 0.1
    * @date 2023-10-23
    *
@@ -192,9 +183,9 @@ xfusion 目前已经提供了 xfusion 内 c 语言代码头文件/源文件模�
 
 ## 缩进风格
 
-xfusion c 源码缩进风格使用"One True Brace Style"，简称`1TBS`或`OTBS`，这是一种基于"K&R"风格的变体。`1TBS`和`K&R`最大的区别是，`1TBS`不允许单语句分支时省略花括号。此处不对缩进风格作详细介绍，详细内容请查阅[Indentation style](https://en.wikipedia.org/wiki/Indentation_style)。
+XFusion c 源码缩进风格使用"One True Brace Style"，简称`1TBS`或`OTBS`，这是一种基于"K&R"风格的变体。`1TBS`和`K&R`最大的区别是，`1TBS`不允许单语句分支时省略花括号。此处不对缩进风格作详细介绍，详细内容请查阅[Indentation style](https://en.wikipedia.org/wiki/Indentation_style)。
 
-xfusion 缩进风格的示例代码如下，详细示例见`examples/get_started/xf_template/main/xf_template_source_detail.c`。
+XFusion 缩进风格的示例代码如下，详细示例见`examples/get_started/xf_template/main/xf_template_source_detail.c`。
 
 ```c
 /**
@@ -393,7 +384,7 @@ TODO: 文件及目录命名风格详细说明
 
 #### 类型定义、结构体、共用体、枚举类型等
 
-xfusion 所有的 c 头文件/源文件都**强制**使用类型定义去替代结构体、共用体、枚举类型，包括浮点类型、整型等数据类型。
+XFusion 所有的 c 头文件/源文件都**强制**使用类型定义去替代结构体、共用体、枚举类型，包括浮点类型、整型等数据类型。
 
 **命名要点：**
 
@@ -468,7 +459,7 @@ xfusion 所有的 c 头文件/源文件都**强制**使用类型定义去替代�
 
 #### 函数、变量、常量、goto 标签等
 
-xfusion c 语言代码都采用`snake_case`风格命名。也就是`unix like`风格。如`xf_evt_attach()`、`xf_evt_sys_init()`等等。
+XFusion c 语言代码都采用`snake_case`风格命名。也就是`unix like`风格。如`xf_evt_attach()`、`xf_evt_sys_init()`等等。
 如需缩写，请从[缩写词表](#缩写词表)中选取。
 
 **命名要点：**
@@ -480,7 +471,7 @@ xfusion c 语言代码都采用`snake_case`风格命名。也就是`unix like`�
    1. `{主语}`通常由`{前缀}_{模块}`组成，是发起动作的主体。
 
       1. `{主语}`**不可**省略。
-      1. 如`xf_spi`表示 xfusion 中的 spi 模块（隐含 xf_hal）。
+      1. 如`xf_spi`表示 XFusion 中的 spi 模块（隐含 xf_hal）。
       1. 如`xf_spi_dev`表示发起动作的主语（主体）是 spi 设备(device)。
 
    1. `{谓语}`即为动作，动作的承接对象可能是主语，也可能是宾语，取决于是否有宾语。
