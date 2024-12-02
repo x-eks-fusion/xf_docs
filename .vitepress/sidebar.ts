@@ -179,6 +179,10 @@ function sidebarContribute(): DefaultTheme.SidebarItem[] {
             text: "Pull Request 提交步骤",
             link: "/zh_CN/contribute/pull_request_process",
         },
+        {
+            text: "组件贡献指南",
+            link: "/zh_CN/contribute/code_component",
+        },
     ];
 }
 
@@ -187,3 +191,4 @@ function sidebarFAQ(): DefaultTheme.SidebarItem[] {
     return [
     ];
 }
+

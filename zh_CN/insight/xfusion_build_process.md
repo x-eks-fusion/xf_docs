@@ -1,14 +1,9 @@
 # XFusion 构建流程
 
-本文简要说明 XFusion 的构建流程。
+> [!NOTE] 作者
+> kirto
 
----
-
-**阅读对象：**
-
-- 想要深入了解 `XFusion` 框架的用户以及移植开发者。
-
----
+本文简要说明 `XFusion` 的构建流程。
 
 ## export 阶段
 
@@ -32,11 +27,11 @@ linux:
 . ./export.sh <target>
 ```
 
-其目的首先是导出`XF_ROOT`、`XF_TARGET`、`XF_VERSION`、`XF_TARGET_PATH` 四个临时环境变量。关闭当前`shell`则环境变量消失。
-其次，创建`python`虚拟环境（如果当前出于`python`虚拟环境中,则不创建）。
-最后安装位于`tools/xf_build/`下的`xf_build`构建工具
+其目的首先是导出`XF_ROOT`、`XF_TARGET`、`XF_VERSION`、`XF_TARGET_PATH` 四个临时环境变量。
+当关闭当前终端则环境变量消失。
 
----
+其次，创建`python`虚拟环境（如果当前出于`python`虚拟环境中,则不创建）。
+最后，通过`pip`安装`xf_build`构建工具
 
 ## 前期判断
 
@@ -92,15 +87,16 @@ xf_build.collect()
 
 `collect()`方法的`srcs`默认为`["*.c"]`、`inc_dirs`默认为`["."]`。如果不设置具体内容，则默认收集该文件夹内的所有`.c`文件。可以自定义，直接采取默认参数。
 
-还有个参数是`requires`。主要涉及到组件之间的依赖关系。如果`A`需要`B`组件里面的函数则在`A`的`xf_collect.py`文件中的`collect()`改为`collect(requires=[B])`组件名为文件夹名。
+`requires`参数主要涉及到组件之间的依赖关系。如果`A`需要`B`组件里面的函数则在`A`的`xf_collect.py`文件中的`collect()`改为`collect(requires=[B])`组件名为文件夹名。
 
-TODO: 后续将会添加更多的指令收集，如：`cflag`等编译参数收集。
+`cflag`则是涉及到的编译标志位参数收集。
 
 ---
 
 ## 插件编译部分
 
-上个阶段的末期会调用`XF_ROOT`下的`plugins`下的`XF_TARGET`插件。这部分需要移植者针对不同的`target`进行对应的编译插件开发。
+上个阶段的末期会调用`XF_ROOT`下的`plugins`下的`XF_TARGET`插件。
+这部分需要移植者针对不同的`target`进行对应的编译插件开发。
 
 插件开发需要完成以下几个功能：
 

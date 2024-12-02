@@ -14,7 +14,7 @@
 
 当我们需要添加一些应用层代码 .c .h 文件的时候。
 我们可以考虑在工程内的 main 文件夹添加。
-由于 main 文件夹中工程收集脚本 `xf_collect.py` 中的 xf_build.collect() 方法自动收集 main 文件下的源文件。
+由于 main 文件夹中工程收集脚本 `xf_collect.py` 中的 [xf_build.collect()](../insight/xf_build_script.md#collect) 方法自动收集 main 文件下的源文件。
 所以，如果在 main 文件夹下面添加文件是不用修改 `xf_collect.py` 的。
 
 ```bash
