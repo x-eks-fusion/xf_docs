@@ -3,7 +3,7 @@
 > [!NOTE] 作者
 > dotc
 
-本文简要说明 xfusion 的目录结构。
+本文简要说明 XFusion 的目录结构。
 
 
 ## xfusion/ : 目录结构

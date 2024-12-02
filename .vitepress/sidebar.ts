@@ -126,11 +126,11 @@ function sidebarAPIReference(): DefaultTheme.SidebarItem[] {
 function sidebarInsight(): DefaultTheme.SidebarItem[] {
     return [
         {
-            text: "xfusion 目录结构",
+            text: "XFusion 目录结构",
             link: "/zh_CN/insight/xfusion_directory_structure",
         },
         {
-            text: "xfusion 构建流程",
+            text: "XFusion 构建流程",
             link: "/zh_CN/insight/xfusion_build_process",
         },
         {

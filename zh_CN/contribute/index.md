@@ -1,16 +1,11 @@
 # 贡献指南
 
-非常感谢您对 xfusion 作出贡献！xfusion 在 Apache-2.0 开源许可证下开源。
+> [!NOTE] 作者
+> ccb5
 
-本文说明如何对 xfusion 作出贡献。
+非常感谢您对 XFusion 作出贡献！xfusion 在 Apache-2.0 开源许可证下开源。
 
----
-
-**阅读对象：**
-
-- 所有贡献者。
-
----
+本文说明如何对 XFusion 作出贡献。
 
 # 准备工作
 
@@ -18,7 +13,7 @@
 
 - 许可证：
 
-  - 如果提交的代码不是您从零开始写的，请检查是否与兼容 xfusion 的开源许可证？xfusion 只接受兼容 Apache-2.0 许可证的代码。
+  - 如果提交的代码不是您从零开始写的，请检查是否与兼容 XFusion 的开源许可证？xfusion 只接受兼容 Apache-2.0 许可证的代码。
   - 如果您是公司的雇员，通常您代码的版权属于公司，因此这意味着您提交代码前必须获得公司的授权，并提交相应的许可协议。
 
 - PR 提交步骤：
@@ -28,21 +23,21 @@
 
 - 代码风格：
 
-  - 是否符合 xfusion 的[编码风格指南](./coding_style_guide.md)？
+  - 是否符合 XFusion 的[编码风格指南](./coding_style_guide.md)？
 
 - 代码注释：
 
-  - 是否符合 xfusion 的[代码注释指南](./code_comment_guide.md)？
+  - 是否符合 XFusion 的[代码注释指南](./code_comment_guide.md)？
   - 代码必要的注释是否充分？
   - 注释描述是否明确无歧义？
   - 是否注明了注意事项？
 
 - 说明文档：
 
-  - 如果贡献的是较大的功能块，是否提供了符合 xfusion 的[说明文档指南](./documentation_guide.md)的说明文档或者使用说明？
+  - 如果贡献的是较大的功能块，是否提供了符合 XFusion 的[说明文档指南](./documentation_guide.md)的说明文档或者使用说明？
 
 - 签署 CLA：
-  如果您是第一次向 xfusion 贡献代码，则需要在 PR 页面签署 Contributor License Agreement(CLA)。
+  如果您是第一次向 XFusion 贡献代码，则需要在 PR 页面签署 Contributor License Agreement(CLA)。
 
 # 子文档
 

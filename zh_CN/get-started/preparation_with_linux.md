@@ -50,7 +50,7 @@ sudo apt-get git
   进入 vim 界面后，输入 <kbd>Shift</kbd>+<kbd>g</kbd>，跳转到最后一行。
   按下 <kbd>o</kbd> 插入自己的命令。
   ```bash
-  alias get_xf=". ~/xfusion/export.sh"   # 双引号后面是 xfusion 路径
+  alias get_xf=". ~/xfusion/export.sh"   # 双引号后面是 XFusion 路径
   ```
   然后通过 <kbd>Esc</kbd> 退出编辑。
   最后通过 <kbd>:</kbd>+<kbd>w</kbd>+<kbd>q</kbd> 再加上回车确认保存。

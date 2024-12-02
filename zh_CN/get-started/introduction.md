@@ -46,7 +46,7 @@ Fusion，意为融合、联合，且有核聚变的意思，表达了 XFusion �
 
 - C99 或更新的编译器。
 
-以下结果为 xfusion 基础组件大小，排除了对接部分的大小，对接部分大小见`基础组件大小详情`​。
+以下结果为 XFusion 基础组件大小，排除了对接部分的大小，对接部分大小见`基础组件大小详情`​。
 
 | 描述     | 优化等级 | flash(bytes) | ram(bytes) |
 | -------- | -------- | ------------ | ---------- |
@@ -87,7 +87,7 @@ Fusion，意为融合、联合，且有核聚变的意思，表达了 XFusion �
 > 所有仓库均能独立移植
 
 - github:
-  - [**XFusion**](https://github.com/x-eks-fusion/xfusion): xfusion 主仓库
+  - [**XFusion**](https://github.com/x-eks-fusion/xfusion): XFusion 主仓库
   - [**xf_utils**](https://github.com/x-eks-fusion/xf_utils): 工具库，有标准库的宏封装，基础的log等级封装，lock锁，链表等功能
   - [**xf_log**](https://github.com/x-eks-fusion/xf_log)：log库，可以对接多个底层。还有过滤器，可以根据你想要的内容过滤log。
   - [**xf_init**](https://github.com/x-eks-fusion/xf_init)：初始化库，提供不同自动初始化实现
@@ -96,7 +96,7 @@ Fusion，意为融合、联合，且有核聚变的意思，表达了 XFusion �
   - [**xf_task**](https://github.com/x-eks-fusion/xf_task)：协作式调度器库，提供协作式多任务功能
   - [**xf_osal**](https://github.com/x-eks-fusion/xf_osal)：操作系统抽象库，提供统一的操作系统API
 - gitee:
-  - [**XFusion**](https://gitee.com/x-eks-fusion/xfusion): xfusion 主仓库
+  - [**XFusion**](https://gitee.com/x-eks-fusion/xfusion): XFusion 主仓库
   - [**xf_utils**](https://gitee.com/x-eks-fusion/xf_utils) 工具库，有标准库的宏封装，基础的log等级封装，lock锁，链表等功能
   - [**xf_log**](https://gitee.com/x-eks-fusion/xf_log)：log库，可以对接多个底层。还有过滤器，可以根据你想要的内容过滤log。
   - [**xf_init**](https://gitee.com/x-eks-fusion/xf_init)：初始化库，提供不同自动初始化实现
