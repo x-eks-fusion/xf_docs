@@ -126,8 +126,8 @@ function sidebarAPIReference(): DefaultTheme.SidebarItem[] {
 function sidebarInsight(): DefaultTheme.SidebarItem[] {
     return [
         {
-            text: "xfusion 文件夹结构",
-            link: "/zh_CN/insight/xfusion_structure",
+            text: "xfusion 目录结构",
+            link: "/zh_CN/insight/xfusion_directory_structure",
         },
         {
             text: "xfusion 构建流程",
@@ -145,15 +145,23 @@ function sidebarPorting(): DefaultTheme.SidebarItem[] {
     return [
         {
             text: "平台工程移植",
+            link: "/zh_CN/porting/porting_xfusion_project",
         },
         {
             text: "构建对接",
+            link: "/zh_CN/porting/porting_xfusion_build",
+        },
+        {
+            text: "基础功能对接",
+            link: "/zh_CN/porting/porting_xfusion_base",
         },
         {
             text: "外设对接",
+            link: "/zh_CN/porting/porting_xfusion_hal",
         },
         {
             text: "其余对接",
+            link: "/zh_CN/porting/porting_xfusion_other",
         },
         {
             text: "组件移植",

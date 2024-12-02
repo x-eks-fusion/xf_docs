@@ -9,6 +9,6 @@
 
 # 目录
 
-- [xfusion 文件夹结构](xfusion_structure.md)
+- [xfusion 目录结构](xfusion_directory_structure.md)
 - [xfusion 构建流程](component_development_guide.md)
 - [xf build 构建脚本](xf_build_script.md)
