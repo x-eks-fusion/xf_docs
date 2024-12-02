@@ -160,8 +160,8 @@ function sidebarPorting(): DefaultTheme.SidebarItem[] {
             link: "/zh_CN/porting/porting_xfusion_hal",
         },
         {
-            text: "其余对接",
-            link: "/zh_CN/porting/porting_xfusion_other",
+            text: "其他对接",
+            link: "/zh_CN/porting/porting_xfusion_others",
         },
         {
             text: "组件移植",
