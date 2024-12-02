@@ -113,12 +113,6 @@ function sidebarAPIReference(): DefaultTheme.SidebarItem[] {
             base: 'http://coral-zone.cc',
             target: '_blank',
         },
-        {
-            text: '移植 API 参考',
-            link: '/xfapidocs/',
-            base: 'http://coral-zone.cc',
-            target: '_blank',
-        },
     ];
 }
 
@@ -126,11 +120,11 @@ function sidebarAPIReference(): DefaultTheme.SidebarItem[] {
 function sidebarInsight(): DefaultTheme.SidebarItem[] {
     return [
         {
-            text: "xfusion 文件夹结构",
-            link: "/zh_CN/insight/xfusion_structure",
+            text: "XFusion 目录结构",
+            link: "/zh_CN/insight/xfusion_directory_structure",
         },
         {
-            text: "xfusion 构建流程",
+            text: "XFusion 构建流程",
             link: "/zh_CN/insight/xfusion_build_process",
         },
         {
@@ -145,15 +139,23 @@ function sidebarPorting(): DefaultTheme.SidebarItem[] {
     return [
         {
             text: "平台工程移植",
+            link: "/zh_CN/porting/porting_xfusion_project",
         },
         {
             text: "构建对接",
+            link: "/zh_CN/porting/porting_xfusion_build",
+        },
+        {
+            text: "基础功能对接",
+            link: "/zh_CN/porting/porting_xfusion_base",
         },
         {
             text: "外设对接",
+            link: "/zh_CN/porting/porting_xfusion_hal",
         },
         {
-            text: "其余对接",
+            text: "其他对接",
+            link: "/zh_CN/porting/porting_xfusion_others",
         },
     ];
 }
@@ -189,3 +191,4 @@ function sidebarFAQ(): DefaultTheme.SidebarItem[] {
     return [
     ];
 }
+

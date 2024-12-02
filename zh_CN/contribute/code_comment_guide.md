@@ -1,22 +1,13 @@
 # 代码注释指南
 
-本文说明 xfusion c/cpp 代码的注释规范。
+> [!NOTE] 作者
+> ccb5
 
----
-
-**适用范围：**
-
-- *外部库以外*的所有 xfusion c/cpp 头文件/源文件。
-
-**阅读对象：**
-
-- 所有 c 语言代码贡献者。
-
----
+本文说明 XFusion c/cpp 代码的注释规范。
 
 # 简介
 
-xfusion c/cpp 代码的注释使用 doxygen 风格的注释，如果使用 vscode 编写代码，请安装`cschlosser.doxdocgen`插件，方便生成 doxygen 风格的注释。
+XFusion c/cpp 代码的注释使用 doxygen 风格的注释，如果使用 vscode 编写代码，请安装`cschlosser.doxdocgen`插件，方便生成 doxygen 风格的注释。
 
 > vscode 的 doxygen 插件：[Doxygen Documentation Generator](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen).
 > doxygen 文档：[Documenting the code](https://www.doxygen.nl/manual/docblocks.html)
@@ -178,7 +169,7 @@ xf_err_t xf_spi_init(
    1. 参数`@param '['dir']' <parameter-name> { parameter description }`.
       `@param`命令通常用于介绍函数或者函数原型(类型定义的函数原型)的参数的作用。
       `@param`命令有一个可选参数，方向`dir`，这个参数紧靠`@param`，可以是`[in]`、`[in, out]`和`[out]`.
-      xfusion 中如果不注明方向`dir`，则**默认为`[in]`**；一旦参数涉及传出，比如函数内会修改指针指向的空间，则必须标明传出双向`[in, out]`和传出`[out]`.
+      XFusion 中如果不注明方向`dir`，则**默认为`[in]`**；一旦参数涉及传出，比如函数内会修改指针指向的空间，则必须标明传出双向`[in, out]`和传出`[out]`.
       `@param`命令中的参数名`<parameter-name>`在插件生成 doxygen 风格注释时会自动生成。
       `@param`命令中的参数描述`{ parameter description }`用于描述该参数的作用，必要时请加上`@ref`或者`@see`命令告知读者有用的参考信息。
       如果函数没有参数，请跳过该命令。

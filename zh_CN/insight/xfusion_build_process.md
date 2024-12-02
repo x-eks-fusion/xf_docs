@@ -1,9 +1,9 @@
-# xfusion 构建流程
+# XFusion 构建流程
 
 > [!NOTE] 作者
 > kirto
 
-本文简要说明 xfusion 的构建流程。
+本文简要说明 `XFusion` 的构建流程。
 
 ## export 阶段
 
