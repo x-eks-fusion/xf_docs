@@ -1,26 +1,174 @@
 # 文档指南
 
-文档是用于帮助其他人了解你的代码、功能或者构思等信息的载体。
+> [!NOTE] 作者
+> ccb5, dotc
 
-本文说明编写 xfusion 文档需要遵守的格式、内容等规则。
+本文描述编写 XFusion 文档需要遵守的内容、格式等规范。
 
----
+**前置准备：**
 
-**适用范围：**
-
-- *外部库以外*的所有文档，目前 xfusion 文档以 markdown 格式为主。
-
-**阅读对象：**
-
-- 所有贡献者。
+1. 对 markdown 语法有充分的了解，如需参考 markdown 语法，请参考 [Markdown 入门基础 | Markdown 官方教程](#Markdown-入门基础-|-Markdown-官方教程)，[Markdown-教程 | 菜鸟教程](<#Markdown-教程-|-菜鸟教程-(runoob.com)>)。
+1. 对 vitepress 部分补充语法，详参: [VitePress 内置的 Markdown 扩展](#VitePress-内置的-Markdown-扩展) 。
 
 ---
 
-本文假定读者已经对 markdown 语法有充分的了解，如对参考 markdown 语法，请参考[参考文献](#参考文献)中的`[2-3]`。
+# 文档仓库的获取及前置准备
 
-# 文档格式
+## 1. 文档仓库的获取
 
-xfusion 文档目前只提供中文和英文两种语言，为了管理不同语言文档中的图片，**请将文档中使用到的图片统一放到`doc/public/image`路径下**。
+   > [!WARNING]
+   > 如需对文档系统部分进行贡献 (需要提 PR )，请勿直接克隆主仓库进行修改，请严格按以下步骤执行。
+
+   - 文档主仓库地址: https://github.com/x-eks-fusion/xf_docs
+
+   1. fork 主仓库到自己的账户下。
+   1. 在本地克隆自己 fork 的仓库。
+   1. 根据将修改的内容，创建合适的分支名，最后基于这个分支进行修改。
+
+   - 详参:[Pull Request 提交步骤](./pull_request_process.md)
+
+## 2. 环境的搭建
+
+   - 如需本地预览效果,请确保已经安装 (`nodejs >= 18`) (`pnpm >= 9.2.0`) 环境。
+
+     - nodejs 安装详见： https://nodejs.org/zh-cn/download/package-manager
+     - 包管理器安装详见： https://nodejs.org/zh-cn/download/package-manager/all
+
+## 3. 根据需要执行以下指令
+
+```shell
+# 安装依赖
+npm install (必需)
+
+# 热更新预览 (看实际需要，通常使用此命令进行边编写边查看实际渲染效果的操作)
+npm run dev
+
+# 编译静态文件 (看实际需要)
+npm run build
+
+# 预览编译后的文件 (看实际需要)
+npm run preview
+```
+
+# 关于文档修改的一些操作
+
+- 文档修改一般有如下操作:
+
+  - 需要在侧边栏新增大纲:
+
+    - 在文件 "**.vitepress/sidebar.ts**" 下的 "**function sidebarTOC()**" 中增加对应的大纲信息以及大纲条目描述。
+    - 例 :
+
+    ::: details 增加大纲 "深入了解"，其中有两条目: "XFusion 目录结构", "XFusion 构建流程"
+
+    ```VitePress
+
+    export function sidebarTOC(): DefaultTheme.SidebarItem[] {
+       return [
+
+          ......
+
+          // 大纲项
+          {
+             text: "深入了解",                // 大纲名
+             collapsed: false,
+             link: "/zh_CN/insight/",         // 大纲文档组所在路径 (index.md)
+             items: sidebarInsight(),         // 大纲的描述 (描述其下条目的名字、路径)
+          },
+
+          ......
+
+       ];
+    }
+    ......
+
+    // 大纲的描述 (描述其下条目的名字、路径)
+    /* 深入了解 */
+    function sidebarInsight(): DefaultTheme.SidebarItem[] {
+       return [
+          {
+                text: "XFusion 目录结构",
+                link: "/zh_CN/insight/xfusion_directory_structure",
+          },
+          {
+                text: "XFusion 构建流程",
+                link: "/zh_CN/insight/xfusion_build_process",
+          },
+       ];
+    }
+
+    ```
+
+    :::
+
+  - 需要在现有大纲中新增条目:
+
+    - 在文件 "**.vitepress/sidebar.ts**" 下的 "**function sidebarTOC()**" 中找到对应大纲项的大纲描述，然后在大纲描述中增加对应的条目信息，以及对应文档的路径。
+    - 例 :
+      ::: details 在大纲 "深入了解" 中增加 1 个条目: "xf build 构建脚本"
+
+      ```VitePress
+
+      export function sidebarTOC(): DefaultTheme.SidebarItem[] {
+         return [
+
+            ......
+
+            // 目标大纲项
+            {
+               text: "深入了解",                // 大纲名
+               collapsed: false,
+               link: "/zh_CN/insight/",         // 大纲文档组所在路径 (index.md)
+               items: sidebarInsight(),         // 大纲的描述 (描述其下条目的名字、路径)
+            },
+
+            ......
+
+         ];
+      }
+      ......
+
+      // 大纲的描述 (描述其下条目的名字、路径)
+      /* 深入了解 */
+      function sidebarInsight(): DefaultTheme.SidebarItem[] {
+         return [
+            {
+                  text: "XFusion 目录结构",
+                  link: "/zh_CN/insight/xfusion_directory_structure",
+            },
+            {
+                  text: "XFusion 构建流程",
+                  link: "/zh_CN/insight/xfusion_build_process",
+            },
+
+
+            // 新增的 "xf build 构建脚本" 条目
+            {
+                  text: "xf build 构建脚本",
+                  link: "/zh_CN/insight/xf_build_script",
+            },
+         ];
+      }
+
+      ```
+
+      :::
+
+# 文档内容
+
+- 目前一般的文档主要有如下内容 :
+  1.  开头标明作者。如下 :
+      ```markdown
+      > [!NOTE] 作者
+      > <作者名称>
+      ```
+  2.  概述。请使用正文格式进行描述。
+  3.  内容。
+  4.  参考文献。
+
+# 文档格式规范
+
+XFusion 文档目前只提供中文，为了管理不同文档中的图片，**请将文档中使用到的图片统一放到`doc/public/image`路径下**。
 
 编写文档时，请遵循以下**文档规则：**
 
@@ -50,10 +198,6 @@ xfusion 文档目前只提供中文和英文两种语言，为了管理不同语
    尽管现在的长度已经缩减，但核心思想仍然不变。这种重复的写作手法，虽然可能显得有些单调，却能够清晰地传达出一个信息：我是一段很长的段落。这就是这个段落存在的意义，它通过简洁的语言和重复的结构，向读者展示了其核心内容。总结来说，这个段落的主旨依然是它的冗长和重复，这是其独特的表达方式。
    ```
 
-1. **对齐中英文文档的行号。**
-
-   这样做能帮助译者节省翻译的时间，而且通过比较行数也能在一定情况下反应某个语言的文档的领先和落后情况。
-
 1. **使用自动格式化**，并注意一些格式细节。
 
    推荐使用 vscode 插件`esbenp.prettier-vscode`来完成格式化与 markdown 预览等功能。通过该插件可以使用`alt + shift + f`快捷键来快速格式化 markdown 文档而不用鼠标右键格式化或者手动格式化。
@@ -81,73 +225,9 @@ xfusion 文档目前只提供中文和英文两种语言，为了管理不同语
    1. markdown 源码也需要保证一定的美观。
       TODO: markdown 源码格式具体规定。
 
-# 文档内容
-
-本节介绍文档中应当有什么内容。
-目前主要说明 example 的介绍文档以及组件的说明文档应当有哪些内容。
-
-## example 的介绍文档
-
-TODO: example 的介绍文档模板。
-
-example 的介绍文档需要包含以下内容：
-
-1. **支持情况。**
-
-   该示例**支持的芯片或平台**的概况。如：`stm32103c8`, `esp32`。
-
-1. **示例简述。**
-
-   这个示例**是什么**？提供了什么**功能**或者有什么**作用**？
-
-1. **如何使用。**
-
-   1. **所需的软件和硬件。**
-
-      1. 软件如平台支持包。示例需要的**必要组件，如无特殊情况，必须集成到示例中**，而不需要再次克隆子模块等。
-      1. 硬件包含芯片平台、所需要的片外外设，外设和芯片需要如何连接。
-
-   1. 示例提供了什么**配置**？用户需要修改什么示例配置才能正常运行？
-   1. 构建和烧录有什么步骤与特殊要点？
-
-1. **运行现象。**
-
-   运行该示例有什么**输出和现象**？
-
-   1. 描述运行现象。
-   1. 放出运行日志。
-
-1. **常见问题。**
-
-   示例有什么常见问题？需要如何解决？
-
-1. **示例平台差异。**
-
-   该示例在不同平台上运行会有什么不同表现？
-   如果没有差异，该部分可以省略。如果有差异，需要怎么做才能屏蔽区别？如果无法屏蔽，请强调差异。
-
-1. **示例详解。**（可以省略）
-
-   主要介绍示例中的重点难点代码。
-
-1. **测试环境。**
-
-   需要列出以下信息确保其他人能够复现示例。
-
-   1. 芯片型号；
-   1. 芯片开发环境的 SDK 版本号；
-   1. 工具链名称及版本号；
-   1. 平台支持包版本号（如实现`xf_hal`的下层硬件驱动）。
-
-## 组件的介绍文档
-
-::: tip Note
-
-组件的介绍文档模板。
-:::
-
 # 参考文献
 
 1. [编写文档 - ESP32 - — ESP-IDF 编程指南 latest 文档 (espressif.com)](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/contribute/documenting-code.html)
-1. [Markdown 教程 | 菜鸟教程 (runoob.com)](https://www.runoob.com/markdown/md-tutorial.html)
-1. [Markdown 入门基础 | Markdown 官方教程](https://markdown.com.cn/intro.html)
+1. [Markdown 教程 | 菜鸟教程 (runoob.com)](https://www.runoob.com/markdown/md-tutorial.html) {#Markdown-教程-|-菜鸟教程-(runoob.com)}
+1. [Markdown 入门基础 | Markdown 官方教程](https://markdown.com.cn/intro.html) {#Markdown-入门基础-|-Markdown-官方教程}
+1. [VitePress 内置的 Markdown 扩展](https://vitepress.dev/zh/guide/markdown) {#VitePress-内置的-Markdown-扩展}
