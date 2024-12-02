@@ -17,6 +17,8 @@
 1. xf_osal
 1. xf_ble
 1. xf_sle
+1. xf_wifi
+1. xf_netif
 
 # 对接流程
 
