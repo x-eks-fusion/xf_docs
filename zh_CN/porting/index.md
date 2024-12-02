@@ -14,4 +14,3 @@
 - [基础功能对接](porting_xfusion_base.md)
 - [外设对接](porting_xfusion_hal.md)
 - [其他对接](porting_xfusion_others.md)
-- [组件移植]()

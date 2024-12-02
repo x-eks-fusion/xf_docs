@@ -113,12 +113,6 @@ function sidebarAPIReference(): DefaultTheme.SidebarItem[] {
             base: 'http://coral-zone.cc',
             target: '_blank',
         },
-        {
-            text: '移植 API 参考',
-            link: '/xfapidocs/',
-            base: 'http://coral-zone.cc',
-            target: '_blank',
-        },
     ];
 }
 
@@ -162,10 +156,6 @@ function sidebarPorting(): DefaultTheme.SidebarItem[] {
         {
             text: "其他对接",
             link: "/zh_CN/porting/porting_xfusion_others",
-        },
-        {
-            text: "组件移植",
-            link: "/zh_CN/porting/porting_component_support",
         },
     ];
 }
