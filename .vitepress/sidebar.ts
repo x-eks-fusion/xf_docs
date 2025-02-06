@@ -131,6 +131,10 @@ function sidebarInsight(): DefaultTheme.SidebarItem[] {
             text: "xf build 构建脚本",
             link: "/zh_CN/insight/xf_build_script",
         },
+        {
+            text: "xf task 协程调度器详解",
+            link: "/zh_CN/insight/xf_task",
+        },
     ];
 }
 
