@@ -29,14 +29,14 @@ xf task支持非常丰富的功能，这些功能后续会一一进行详细介�
 
 1. 协作式调度，支持裸机移植，支持多线程中构造多个调度器 [裸机和多线程中移植](#裸机和多线程中移植)
 2. 支持三种种任务，ttask （定时任务）、ntask（无栈协程）、ctask （有栈协程）[三种任务用法](#三种任务的用法)
-3. 移植简单，ttask、ntask 仅需对接时间戳的获取。ctask 对接上下文的创建和切换函数（可通过宏屏蔽）[配置项]()
-4. 支持协作式优先级  [优先级机制]()
-5. 支持两种消息队列，queue和ctask_queue [消息队列机制]()
-6. 支持任务触发机制 [时间触发和事件触发]()
-7. 支持紧急任务 [紧急任务机制]()
-8. 支持任务饥饿度机制 [任务饥饿与饥饿度]()
-9. 支持 mbus 发布订阅机制 [解耦的发布订阅机制]()
-10. 支持任务池机制 [任务池和任务回收机制]()
+3. 移植简单，ttask、ntask 仅需对接时间戳的获取。ctask 对接上下文的创建和切换函数（可通过宏屏蔽）[xf_task 配置项详解](#xf_task-配置项详解)
+4. 支持协作式优先级  [优先级机制](#优先级机制)
+5. 支持两种消息队列，queue和ctask_queue [消息队列机制](#消息队列机制)
+6. 支持任务触发机制 [时间触发和事件触发](#时间触发和事件触发)
+7. 支持紧急任务 [紧急任务机制](#紧急任务机制)
+8. 支持任务饥饿度机制 [任务饥饿与饥饿度](#任务饥饿与饥饿度)
+9. 支持 mbus 发布订阅机制 [同步/异步的发布订阅机制](#同步异步的发布订阅机制)
+10. 支持任务池机制 [任务池和任务回收机制](#任务池和任务回收机制)
 11. 仅依赖 xf_utils, 支持 c99 
 
 ## 开源地址
@@ -276,8 +276,15 @@ xf_task_t xf_ttask_create_loop(xf_task_func_t func, void *func_arg, uint16_t pri
  */
 xf_task_t xf_ttask_create(xf_task_func_t func, void *func_arg, uint16_t priority, uint32_t delay_ms, uint32_t count);
 ```
+**优点：**
+- 周期性任务很方便
+- 创建任务的开销非常小
+- 可以选择多次循环还是无限循环
+- 移植难度简单
 
-从使用例程上来说，比较简单的两种创建方式，本质上就是带优先级的定时器。在做一些周期性的任务很好用。但是遇到一些非周期性的任务写起来就比较麻烦，这个任务也必须是“开环”的，无法加入“延时函数”，不符合我们写裸机的同步思路。
+**缺点：**
+- 遇到非周期任务，使用起来很麻烦。异步的逻辑构思很麻烦。
+- 不允许出现 delay 等阻塞函数。
 
 ### 同步调用 ctask
 
@@ -314,7 +321,15 @@ void app_main()
 xf_task_t xf_ctask_create(xf_task_func_t func, void *func_arg, uint16_t priority, size_t stack_size);
 ```
 
-ctask 允许我们创建一个类似于裸机的大循环任务。并且需要延时的时候是可以直接调用 delay 函数。这种处理从开发者的角度上更容易被接受。但是，这种做法我们需要移植的时候对接上下文，并且需要在创建的时候分配内存空间用于保存上下文和栈。
+
+**优点：**
+- 创建大循环，并且可以调用 delay 等阻塞函数。
+- 嵌套非常方便，不需要修改原有函数。
+- 同步调用思维，更加贴近裸机的调用习惯。
+
+**缺点：**
+- 单个任务的开销比较大，不适合多次创建。
+- 需要额外移植保存上下文，移植难度较大。
 
 
 ### 更加轻量级的同步调用 ntask
@@ -355,8 +370,16 @@ void app_main()
  */
 xf_task_t xf_ntask_create(xf_task_func_t func, void *func_arg, uint16_t priority);
 ```
+**优点：**
+- 创建大循环，并且可以调用 delay 等阻塞函数。
+- 同步调用思维，更加贴近裸机的调用习惯。
+- 单个任务开销很小。
+- 移植难度简单。
 
-ntask 则是集合了二者的优势。其可以使用 while 大循环，能够使用专属的 delay 函数来进行延时操作，而且也不需要独立堆栈，控制了任务的开销。也正因为它不需要独立的堆栈，所以当他有 delay 函数的时候，delay 完成，则局部变量都会被销毁。所以跨 delay 函数需要使用静态/全局变量。或者使用专属的函数创建。
+**缺点：**
+- 不能保存临时变量，需要借助到变量池。
+- 可以嵌套，但是需要修改原有的函数。
+
 
 ## task_base 的函数及其用法
 
@@ -458,6 +481,7 @@ void *xf_task_get_user_data(xf_task_t task);
 ttask 的本身函数是形如 xxx_with_manager 结构。在多线程多协程的环境中，可以跑在不同的任务管理器中。
 多线程环境下，一个线程跑一个任务管理器，跨任务管理器的通讯需要用线程间通讯 详见：[多线程移植](#多线程移植esp32)
 但在裸机环境或者多线程中只用一个线程跑协程的环境下，就可以直接使用不带 _with_manager 的函数，简化了函数的调用。
+ttask 的延时时间为 0 的时候，ttask将会变成一个纯事件触发的任务。只有调用 xf_task_trigger() 函数才能被执行。
 
 ### API 展示
 
@@ -674,6 +698,510 @@ xf_ntask_exit()
 - **嵌套调用无栈协程：**
 ```C
 xf_await(func) 
+```
+
+
+
+## xf_task 配置项详解
+
+### 基本规则
+
+#### 文件夹结构规则
+
+xf_task 的源码文件夹中，拥有四个子文件夹。其最外面有个 xf_task_config_internal.h 文件，在子文件夹也有对应的xxx_config.h，移植者需要自己写一个 xf_task_config.h 的配置文件，其依赖关系如下：
+
+> 子文件夹源码 --> 子文件夹的 xxx_config.h --> xf_task_config_internal.h --> xf_task_config.h
+
+子文件夹的 xxx_config.h 中包含了当前子文件夹所需要的宏的默认值。如果有不知道的配置，可以自行去这些文件中找到默认值，一般会有注释。
+
+xf_task_config_internal.h 一方面方便集中引入用户的配置文件 xf_task_config.h。另一方面，如果有跨不同子文件夹的公共配置，默认值将会被放到这里。
+
+如果你希望所有配置都是默认值，则创建一个空的 xf_task_config.h 即可。配置的项目会覆盖掉默认值。
+
+#### 基础配置宏规则
+
+**基础配置宏**
+```c
+// 相关功能注释
+#ifndef XF_BUFEER_SIZE
+#define XF_BUFEER_SIZE  (10)
+#endif
+```
+- 一般的配置，我们会在 xxx_config.h 文件中配置一个默认值。以便在用户不配置该选项的情况下，代码能运行。
+- 在其上方也会有解释型注释。方便用户的查询。
+
+**开关类配置宏**
+```c
+// 希望默认值为1
+// 外部配置使用XF_ADC_ENABLE，内部调用使用XF_ADC_EN 
+#if !defined(XF_ADC_ENABLE) || (XF_ADC_ENABLE)
+#define XF_ADC_IS_ENABLE (1)   	/* 默认配置 */
+#else
+#define XF_ADC_IS_ENABLE (0)
+#endif
+
+
+// 希望默认值为0
+// 外部配置使用XF_ADC_ENABLE，内部调用使用XF_ADC_EN 
+#if !defined(XF_ADC_DISABLE) || (XF_ADC_DISABLE)
+#define XF_ADC_IS_ENABLE (0)	/* 默认配置 */
+#else
+#define XF_ADC_IS_ENABLE (1)
+#endif
+```
+
+- 开关宏，我们通常会隔离外部的配置。内部使用 XXX_IS_ENABLE 宏进行判断，外部使用 XXX_ENBALE 或 XXX_DISABLE 进行配置。
+- 当默认值为 0 的时候，对外使用的是 XXX_DISABLE。默认值为 1 的时候，对外使用的是 XXX_ENBALE。用户可以很明显的了解到内部的默认配置。
+
+**数据类型类配置宏**
+
+```c
+// 外界配置 XF_HEAP_INTPTR_TYPE宏
+#ifndef XF_HEAP_INTPTR_TYPE
+#define XF_HEAP_INTPTR_TYPE intptr_t
+#endif
+ 
+// 内部 typedef 可以帮忙检查宏是不是类型
+// 同时在书写中 typedef 修饰的类型在代码提示中会被识别成类型而不是宏
+typedef XF_HEAP_INTPTR_TYPE xf_heap_intptr_t;
+```
+
+- 数据类型的配置一般会形如 XXX_TYPE 。
+
+**数据限制宏**
+
+```c
+// 限定用户配置在 0-10 之间
+#ifndef XF_TASK_LEVEL
+#define XF_TASK_LEVEL (5)
+#else
+#if (XF_TASK_LEVEL < 0) || (XF_TASK_LEVEL > 10) 
+#error "task must be 0-10"
+#endif
+#endif
+```
+
+- 当配置的为具体数值时，如果希望用户的配置是一个范围，则会按照如上方式进行限制
+
+
+**选项型配置**
+
+```c
+
+// XF_LOG_NEWLINE_LF 优先级大于XF_LOG_NEWLINE_CRLF 大于 XF_LOG_NEWLINE_NONE
+// 都没定义则是"\n"
+#ifdef XF_LOG_NEWLINE
+#error "user cant define this macro"
+#endif
+#if defined(XF_LOG_NEWLINE_LF)
+#define XF_LOG_NEWLINE "\n"
+#elif defined(XF_LOG_NEWLINE_CRLF)
+#define XF_LOG_NEWLINE "\r\n"
+#elif defined(XF_LOG_NEWLINE_NONE)
+#define XF_LOG_NEWLINE ""
+#else
+#define XF_LOG_NEWLINE "\n"  // 什么都没定义的情况下默认配置
+#endif
+```
+- 选项类型的宏，如上述例子，用户可以通过定义，XF_LOG_NEWLINE_LF 或者 XF_LOG_NEWLINE_CRLF 或者 XF_LOG_NEWLINE_NONE 其中一个（多定义按照优先级来确定）。从而定义 XF_LOG_NEWLINE 的内容
+- 用户不能直接定义 XF_LOG_NEWLINE 。防止用户定义奇怪的内容。
+
+### 配置项
+
+#### kernel 配置
+
+<style>
+.card h4 {
+    margin-top: 0;
+    color: #333;
+}
+.card p {
+    margin: 10px 0;
+    color: #333;
+}
+.card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.2s ease-in-out;
+    background: #f1f1f1;
+    border-left: 4px solid #0078D7;
+    padding: 10px;
+    font-family: monospace;
+    color: #333;
+    word-break: break-word;
+}
+</style>
+
+<div class="card">
+    <h4>配置宏: <code>XF_TASK_PRIORITY_LEVELS</code></h3>
+    <p><strong>功能：</strong>配置任务最高优先级，1 ~ 1024 之间</p>
+    <p><strong>默认值：</strong>24</p>
+</div>
+
+<div class="card">
+    <h4>配置宏: <code>XF_TASK_HUNGER_ENABLE</code></h3>
+    <p><strong>功能：</strong>是否启用任务饥饿机制</p>
+    <p><strong>默认值：</strong>1</p>
+</div>
+
+<div class="card">
+    <h4>配置宏: <code>XF_TASK_USER_DATA_ENABLE</code></h3>
+    <p><strong>功能：</strong>是否启用 user_data</p>
+    <p><strong>默认值：</strong>1</p>
+</div>
+
+#### port 配置
+
+<div class="card">
+    <h4>配置宏: <code>XF_TASK_TICKS_FREQUENCY</code></h3>
+    <p><strong>功能：</strong>对接定时器的滴答频率，单位为 Hz</p>
+    <p><strong>默认值：</strong>1000</p>
+</div>
+
+<div class="card">
+    <h4>配置宏: <code>XF_TASK_CONTEXT_TYPE</code></h3>
+    <p><strong>功能：</strong>设置上下文类型</p>
+    <p><strong>默认值：</strong>无默认值，开启了 ctask 必须配置该选项</p>
+</div>
+
+#### utils 配置
+
+<div class="card">
+    <h4>配置宏: <code>XF_TASK_MBUS_ENABLE</code></h3>
+    <p><strong>功能：</strong>是否打开 MBUS 功能</p>
+    <p><strong>默认值：</strong>1</p>
+</div>
+
+<div class="card">
+    <h4>配置宏: <code>XF_TASK_POOL_ENABLE</code></h3>
+    <p><strong>功能：</strong>是否打开任务池功能</p>
+    <p><strong>默认值：</strong>1</p>
+</div>
+
+#### 内部公共配置
+
+<div class="card">
+    <h4>配置宏: <code>XF_TASK_CONTEXT_DISABLE</code></h3>
+    <p><strong>功能：</strong>是否打开 ctask</p>
+    <p><strong>默认值：</strong>0</p>
+</div>
+
+<div class="card">
+    <h4>配置宏: <code>XF_TASK_TIME_TYPE</code></h3>
+    <p><strong>功能：</strong>时间戳类型</p>
+    <p><strong>默认值：</strong>uint64_t</p>
+</div>
+
+## 优先级机制
+
+与 RTOS 的优先级不同，由于 xf_task 是协作式调度。故不存在 RTOS 中的抢占优先级。xf_task 优先级机制是一种协作式优先级，每次进入调度的时候，优先级提供给调度器一个选择哪个就绪任务运行的依据。
+> stm32 中有个功能叫优先级分组。其中有两种优先级，一个叫抢占优先级（Preemptive Priority）一个叫子优先级（Sub Priority）。抢占优先级类似 RTOS 里面的优先级，主要的特点是高优先级的会打断低优先级。而子优先级就类似我们说的优先级，只决定同时触发时谁先执行。
+
+- 优先级决定了当不同任务都处于就绪状态时，谁先运行
+- 即使优先级再高也要等到当前任务主动让出CPU才能运行
+- 优先级的数字越小优先级越高
+- 优先级可以通过[配置项](#配置项)进行配置
+- 优先级可以由用户在运行时动态改变
+- 同优先级的任务遵循先入先出的原则
+
+## 消息队列机制
+
+虽然 xf_task 是协作式调度，这就意味着他可以随便在不同任务间使用全局变量和静态变量，但是消息队列有时候会很好用。于是，我们的 xf_task 支持了两种消息队列机制。
+
+### 普通消息队列
+
+普通的消息队列在任意的任务都能使用。这部分的代码与核心是解耦的。
+所以可以单独拿出来使用。
+
+#### API 展示
+- **消息队列初始化：**
+```C
+xf_err_t xf_task_queue_init(xf_task_queue_t *const queue, void *data, const size_t size, const size_t count);
+```
+- **重置消息队列：**
+```C
+xf_err_t xf_task_queue_reset(xf_task_queue_t *const queue);
+```
+- **判断是否为空：**
+```C
+bool xf_task_queue_is_empty(const xf_task_queue_t *const queue);
+```
+- **获取数据个数：**
+```C
+size_t xf_task_queue_count(const xf_task_queue_t *const queue);
+```
+- **偷看第一个元素：**
+```C
+void *xf_task_queue_peek(const xf_task_queue_t *const queue);
+```
+- **获取剩余空间：**
+```C
+size_t xf_task_queue_available(const xf_task_queue_t *const queue);
+```
+- **发送数据：**
+```C
+xf_err_t xf_task_queue_send(xf_task_queue_t *const queue, void *item, const xf_task_queue_mode_t pos);
+```
+- **删除第一个元素：**
+```C
+xf_err_t xf_task_queue_remove_front(xf_task_queue_t *const queue);
+```
+- **接收一个元素：**
+```C
+xf_err_t xf_task_queue_receive(xf_task_queue_t *const queue, void *const buffer);
+```
+
+### ctask 消息队列
+
+ctask 的消息队列，由于 ctask 可以保存上下文。所以在发送和接受又会有 timeout。
+阻塞期间不会耽误别的任务执行。 其 API 参考：[ctask 的函数及其用法](#ctask-的函数及其用法)
+
+## 时间触发和事件触发
+
+xf task 基本上是可以基于时间触发和事件触发。
+
+**时间触发**
+
+时间触发在不同的任务中的表现不同：
+- ctask：ctask中 的 delay 就经典的时间触发，当然还包括 ctask 版本的消息队列的超时部分
+- ntask：ntask 中的 delay 也是时间触发。
+- ttask：ttask 的定时器周期是时间触发。
+
+**事件触发**
+
+相比于时间触发，事件触发则有一个明显的函数：
+```c
+xf_err_t xf_task_trigger(xf_task_t task);
+```
+该函数是异步的，调用后不会立即执行该任务，等当前任务主动释放 CPU 的时候才会被触发，触发后任务从阻塞态进入就绪态。
+用户可以通过该函数触发任何任务，除此之外还有些隐藏的调用：
+
+- ctask：ctask 中消息队列接收到消息后会通过事件触发被阻塞的任务
+- ntask: ntask 中 xf_ntask_yield() 会短暂让出 CPU。
+
+另外，ttask 如果主动调用 xf_task_trigger() 函数，不会消耗其循环次数。
+
+## 紧急任务机制
+
+紧急任务不是一个新的任务。是由原先的任务通过函数：
+```c
+xf_err_t xf_task_set_urgent_task_with_manager(xf_task_manager_t manager, xf_task_t task, bool force);
+// or
+xf_err_t xf_task_set_urgent_task(xf_task_t task, bool force);
+```
+- 将已有的任务设置为紧急任务，该紧急任务会在下次调度的时候被优先执行(非优先级)。
+- 紧急任务运行完毕后，紧急状态则会被解除。
+- 当有多个任务被设置为紧急任务时，如果启用 force ，则会使用最设置任务为紧急任务。如果不启用 force，则会返回 XF_ERR_BUSY 告诉设置失败。
+
+## 任务饥饿与饥饿度
+
+### 任务饥饿
+
+由于协作式任务的优先级不能进行抢占。所以，从理想的角度，每个任务不能占用过长的时间。这会导致很多进入就绪任务无法进行执行，以 ntask 为例子。遇到某种算法占用过长时间，我们需要利用：
+```c
+xf_ntask_yield()
+```
+短暂让出 CPU。
+即使这样，也会出现低优先级任务就绪中迟迟无法执行。全都是高优先级任务在执行。
+这种情况下，我们称低优先级任务为“饥饿”状态。
+
+### 饥饿值机制
+
+当任务开启 XF_TASK_HUNGER_ENABLE 时，任务可以使用：
+```c
+void xf_task_feel_hungery_enable(xf_task_t task, uint32_t hunger_time);
+```
+函数开启饥饿值机制。当任务的超时时间大于指定的饥饿时间，则饥饿的任务会自动上升一个临时优先级直至任务得以执行。该机制主要保证任务不会永远出于饥饿状态。
+如果取消紧急任务可以使用如下函数：
+```c
+void xf_task_feel_hungery_disable(xf_task_t task);
+```
+
+## 同步/异步的发布订阅机制
+
+虽然 xf_task 是协作式调度，这就意味着他可以随便在不同任务间使用全局变量和静态变量，但是发布订阅机制有时候确实很方便。于是，我们的 xf_task 支持了同步和异步两种发布订阅机制。
+
+### 同步发布订阅
+
+```C
+#define TOPIC_ID 1 // 随便给一个id号
+
+void bus_cb(const void *const data, void *user_data)
+{
+    int num = *(int *)data;
+    printf("data:%d\n", num);
+}
+
+void task_pub(xf_task_t task)
+{
+    static int num = 1;
+    num++;
+    // 同步发送（快，但是会阻塞本任务）
+    xf_task_mbus_pub_sync(TOPIC_ID, &num);
+}
+
+void app_main()
+{
+    // 注册 topic
+    xf_task_mbus_reg_topic(TOPIC_ID, sizeof(int));
+    // 订阅 topic
+    xf_task_mbus_sub(TOPIC_ID, bus_cb, NULL);
+    // 创建一个任务，定时发布消息
+    xf_ttask_create_loop(task_pub, (void *)1, 1, 2000);
+}
+```
+
+同步发布订阅是在消息发布的时候立即去执行订阅者这边的回调。
+它的优势就是处理速度会很及时，但是如果订阅者过多，或者处理时间过长。此时就会阻塞当前任务的执行。
+
+### 异步发布订阅
+
+```C
+#define TOPIC_ID 1 // 随便给一个id号
+
+void bus_cb(const void *const data, void *user_data)
+{
+    int num = *(int *)data;
+    printf("data:%d\n", num);
+}
+
+void task_pub(xf_task_t task)
+{
+    static int num = 1;
+    num++;
+    // 异步发送（慢，但是不会阻塞本任务）
+    xf_task_mbus_pub_async(TOPIC_ID, &num);
+}
+
+void app_main()
+{
+    // 注册 topic
+    xf_task_mbus_reg_topic(TOPIC_ID, sizeof(int));
+    // 订阅 topic
+    xf_task_mbus_sub(TOPIC_ID, bus_cb, NULL);
+    // 创建一个任务，定时发布消息
+    xf_ttask_create_loop(task_pub, (void *)1, 1, 2000);
+}
+```
+
+异步发布订阅在发送的时候并不会直接进行触发，而是将发送的消息保存起来后触发内部的 ttask 任务。
+然后，等待当前任务执行完。则进行异步回调的执行。
+
+> 注意：目前的发布订阅机制仅服务于默认的任务管理器。自定义的任务管理器尚且不支持
+
+#### API 展示
+- **注册 topic：**
+```C
+xf_err_t xf_task_mbus_reg_topic(uint32_t topic_id, uint32_t size);
+```
+- **注销 topic：**
+```C
+xf_err_t xf_task_mbus_unreg_topic(uint32_t topic_id);
+```
+- **异步发布消息至 topic：**
+```C
+xf_err_t xf_task_mbus_pub_async(uint32_t topic_id, void *data);
+```
+- **同步发布消息至 topic：**
+```C
+xf_err_t xf_task_mbus_pub_sync(uint32_t topic_id, void *data);
+```
+- **订阅指定 topic：**
+```C
+xf_err_t xf_task_mbus_sub(uint32_t topic_id, xf_task_mbus_func_t mbus_cb, void *user_data);
+```
+- **取消订阅指定 topic：**
+```C
+xf_err_t xf_task_mbus_unsub(uint32_t topic_id, xf_task_mbus_func_t mbus_cb);
+```
+
+## 任务池和任务回收机制
+
+当我们大量且多次的创建和删除任务，有可能会导致内存的碎片化。所以，我们对现有的xf_task 设计了任务池机制。
+
+```C
+
+xf_task_pool_t tpool = NULL;
+
+static void ttask(xf_task_t task)
+{
+    static int num = 0;
+    num++;
+    // 不断的创建任务（由于任务池的存在，所以不会申请内存，反而会回收已经使用完的任务）
+    printf("ttask:%d\n", num);
+    if (num < 5) {
+        xf_task_init_from_pool(tpool, ttask, (void *)1, 1);
+    } else { // 创建五次后删除任务池
+        xf_err_t err = xf_task_pool_delete(tpool);
+        if (err == XF_OK)
+        {
+            printf("delete tpool\n");
+        }
+    }
+}
+
+void app_main()
+{
+    tpool = xf_ttask_pool_create(MAX_WORKERS, 1000, 1);
+
+    // 通过任务池创建 ttask 任务
+    xf_task_init_from_pool(tpool, ttask, (void *)1, 1);
+}
+```
+
+任务池有以下功能：
+- 任务池可以创建 ctask、ntask 和 ttask 任务池。
+- 任务池创建好后，可以分别从不同的任务池里初始化任务
+- 当任务删除时，任务进入回收
+- 任务池中没有任务则会返回 NULL
+
+### API 展示
+
+#### 默认任务管理器创建任务池
+
+- **创建 ttask 任务池：**
+```C
+xf_task_pool_t xf_ttask_pool_create(uint32_t max_works, uint32_t delay_ms, uint32_t count);
+```
+
+- **创建 ntask 任务池：**
+```C
+xf_task_pool_t xf_ntask_pool_create(uint32_t max_works);
+```
+
+- **创建 ctask 任务池：**
+```C
+xf_task_pool_t xf_ctask_pool_create(uint32_t max_works, size_t stack_size);
+```
+
+#### 任意任务管理器创建任务池
+
+- **创建 ttask 任务池：**
+```C
+xf_task_pool_t xf_ttask_pool_create_with_manager(uint32_t max_works, xf_task_manager_t manager, uint32_t delay_ms, uint32_t count);
+```
+
+- **创建 ntask 任务池：**
+```C
+xf_task_pool_t xf_ntask_pool_create_with_manager(uint32_t max_works, xf_task_manager_t manager);
+```
+
+- **创建 ctask 任务池：**
+```C
+xf_task_pool_t xf_ctask_pool_create_with_manager(uint32_t max_works, xf_task_manager_t manager, size_t stack_size);
+```
+
+#### 任务池操作函数
+
+- **删除任务池：**
+```C
+xf_err_t xf_task_pool_delete(xf_task_pool_t pool);
+```
+
+- **从任务池中初始化任务：**
+```C
+xf_task_t xf_task_init_from_pool(xf_task_pool_t pool, xf_task_func_t func, void *func_arg, uint16_t priority);
 ```
 
 # 裸机和多线程中移植
