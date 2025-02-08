@@ -36,7 +36,7 @@
 
 2. 在 text 段中加入 `xf_auto_init` 段，如下：
 
-   ```Linkscript
+   ```c
 
     /* 省略 */
 
