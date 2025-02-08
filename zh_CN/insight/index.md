@@ -10,6 +10,6 @@
 # 目录
 
 - [XFusion 目录结构](xfusion_directory_structure.md)
-- [XFusion 构建流程](component_development_guide.md)
+- [XFusion 构建流程](xfusion_build_process.md)
 - [xf build 构建脚本](xf_build_script.md)
 - [xf task 协程调度器详解](xf_task.md)
