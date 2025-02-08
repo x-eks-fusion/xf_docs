@@ -17,7 +17,7 @@
 
 ## 介绍
 xf_task 是 XFusion 的一个核心功能。其本身是一个轻量级协作式调度器。可以跑在多线程的环境下也可以跑在裸机的环境中。
-相比于RTOS，其本身的占用仅仅需要4k左右，且创建一个ntask任务仅仅需要xx的大小。
+相比于RTOS，其本身的占用仅仅需要 2.5k （keil ac5 编译得出）左右，且创建一个 ntask 任务仅仅需要 96B 的大小。
 xf_task 实现了三种任务：ctask（有栈协程）、 ntask（无栈协程）和 ttask （定时器任务）
 ctask 提供了上下文保存，使用体验上无限接近于线程。
 ntask 提供了非常轻量的任务方式，非常适合资源受限的嵌入式设备。
@@ -106,22 +106,78 @@ graph LR
 ### 继承关系图
 
 ```mermaid
-graph BT
-    A["task_base"]
-    C["ctask"]
-    E["ntask"]
-    B["ttask"]
-    D["task_manager"]
-    D -.-> A
-    subgraph box["调度器"]
-        D
-    end
-    subgraph Box["task_kernel"]
-        direction TB
-        A ---> B
-        A ---> C
-        A ---> E
-    end
+classDiagram
+    %% 虚函数表结构
+    class xf_task_vfunc_t {
+      +xf_task_create_t constructor
+      +xf_task_reset_t reset
+      +xf_task_update_t update
+      +xf_task_exec_t exec
+    }
+
+    %% 任务基类
+    class xf_task_base_t {
+      +xf_list_t node
+      +xf_task_manager_t manager
+      +xf_task_func_t func
+      +void *arg
+      +uint32_t type
+      +uint32_t state
+      +uint32_t flag
+      +uint32_t signal
+      +uint32_t priority
+      +uint32_t delay
+      +xf_task_time_t wake_up
+      +xf_task_time_t suspend_time
+      +int32_t timeout
+      +const xf_task_vfunc_t *vfunc
+      +xf_task_delete_t delete
+    }
+
+    %% 循环任务
+    class xf_ttask_handle_t {
+      +uint32_t count
+      +uint32_t count_max
+    }
+
+    %% 条件任务
+    class xf_ntask_handle_t {
+      +xf_ntask_compare_func_t compare
+      +xf_ntask_status_t status
+      +xf_list_t lc_list
+      +xf_list_t args_list
+    }
+
+    %% 协作任务
+    class xf_ctask_handle_t {
+      +size_t stack_size
+      +xf_task_context_t context
+      +void *stack
+      +xf_list_t queue_node
+    }
+
+    %% 任务调度器
+    class xf_task_manager_handle_t {
+      +xf_task_t current_task
+      +xf_task_t urgent_task
+      +xf_list_t ready_list
+      +xf_list_t blocked_list
+      +xf_list_t suspend_list
+      +xf_list_t destroy_list
+      +xf_task_on_idle_t on_idle
+      +xf_list_t hunger_list
+      +xf_task_context_t context
+    }
+
+    %% 继承关系
+    xf_ttask_handle_t --|> xf_task_base_t : inherits
+    xf_ntask_handle_t --|> xf_task_base_t : inherits
+    xf_ctask_handle_t --|> xf_task_base_t : inherits
+
+    %% 关联关系
+    xf_task_base_t --> xf_task_vfunc_t : uses
+    xf_task_base_t --> xf_task_manager_handle_t : belongs to
+
 
 ```
 
@@ -137,9 +193,9 @@ typedef struct _xf_task_base_t {
     xf_task_manager_t manager;      /*!< 保存 task 所属的 manager ，以便更快访问 manager */
     xf_task_func_t func;            /*!< 每个任务所执行的内容 */
     void *arg;                      /*!< 任务中用户定义参数 */
-    uint32_t type:      1;          /*!< 任务类型，见 @ref xf_task_type_t */
+    uint32_t type:      2;          /*!< 任务类型，见 @ref xf_task_type_t */
     uint32_t state:     3;          /*!< 任务状态，见 @ref xf_task_state_t */
-    uint32_t flag:      9;          /*!< 任务标志位，外部设置的标志位，内部只会读取不会设置 */
+    uint32_t flag:      8;          /*!< 任务标志位，外部设置的标志位，内部只会读取不会设置 */
     uint32_t signal:    9;          /*!< 任务间信号，内部传递消息使用，外部无法设置，
                                      *   见 XF_TASK_SIGNAL_* 宏 */
     uint32_t priority:  10;         /*!< 任务优先级，具体最大值参考 @ref XF_TASK_PRIORITY_LEVELS */
@@ -380,6 +436,95 @@ xf_task_t xf_ntask_create(xf_task_func_t func, void *func_arg, uint16_t priority
 - 不能保存临时变量，需要借助到变量池。
 - 可以嵌套，但是需要修改原有的函数。
 
+## task_manager 的函数及其用法
+task_manager 任务管理器，主要的作用就是参与调度。其 xf_task_manager_run 函数需要被放到无限循环中。
+裸机中，我们一般只有一个 task_manager ，于是，封装了一个 default_task_manager 简化了调用的管理器参数的传入。
+任务管理器支持 Tickless 模式，可以通过空闲函数的参数（最大空闲时间）进行休眠。休眠器件 SysTick 会不起作用。所以我们提供了补偿函数，用户通过 RTC 等手段记录休眠真实时间，然后通过调用补偿函数，对现有的任务进行补偿。以此达到空闲时休眠的效果。
+
+### API 展示
+
+#### 任意任务管理器操作函数
+
+- **创建任务管理器：**
+```C
+xf_task_manager_t xf_task_manager_create(xf_task_on_idle_t on_idle);
+```
+- **设置 manager 的空闲回调函数：**
+```C
+xf_err_t xf_task_manager_set_idle(xf_task_manager_t manager, xf_task_on_idle_t on_idle);
+```
+- **启动任务管理器调度任务：**
+```C
+void xf_task_manager_run(xf_task_manager_t manager);
+```
+- **为任意任务管理器紧急任务：**
+```C
+xf_err_t xf_task_set_urgent_task_with_manager(xf_task_manager_t manager, xf_task_t task, bool force);
+```
+
+- **为任意任务管理器设置时间补偿：**
+```C
+xf_err_t xf_task_manager_set_compensation_time(xf_task_manager_t manager, xf_task_time_t time_ms);
+```
+
+#### 默认任务管理器操作函数
+
+- **创建默认的任务管理器：**
+```C
+xf_err_t xf_task_manager_default_init(xf_task_on_idle_t on_idle);
+```
+
+- **置默认任务管理器的空闲回调函数：**
+```C
+xf_err_t xf_task_manager_set_default_idle(xf_task_on_idle_t on_idle);
+```
+
+- **获取默认的任务管理器：**
+```C
+xf_task_manager_t xf_task_get_default_manager(void);
+```
+
+- **启动任务管理器调度任务：**
+```C
+void xf_task_manager_run_default(void);
+```
+
+- **为默认任务管理器紧急任务：**
+```C
+xf_err_t xf_task_set_urgent_task(xf_task_t task, bool force);
+```
+
+- **为默认任务管理器设置时间补偿：**
+```C
+xf_err_t xf_task_manager_set_compensation_time_default(xf_task_time_t time_ms);
+```
+
+#### 其它操作函数
+
+- **获取管理器运行的任务：**
+```C
+xf_task_t xf_task_manager_get_current_task(xf_task_manager_t manager);
+```
+
+- **设置当前任务为就绪态：**
+```C
+xf_err_t xf_task_manager_task_ready(xf_task_manager_t manager, xf_task_t task);
+```
+
+- **设置当前任务为挂起态：**
+```C
+xf_err_t xf_task_manager_task_suspend(xf_task_manager_t manager, xf_task_t task);
+```
+
+- **设置当前任务为删除态：**
+```C
+xf_err_t xf_task_manager_task_destory(xf_task_manager_t manager, xf_task_t task);
+```
+
+- **设置当前任务为阻塞态：**
+```C
+xf_err_t xf_task_manager_task_blocked(xf_task_manager_t manager, xf_task_t task);
+```
 
 ## task_base 的函数及其用法
 
@@ -479,7 +624,7 @@ void *xf_task_get_user_data(xf_task_t task);
 ## ttask 的函数及其用法
 
 ttask 的本身函数是形如 xxx_with_manager 结构。在多线程多协程的环境中，可以跑在不同的任务管理器中。
-多线程环境下，一个线程跑一个任务管理器，跨任务管理器的通讯需要用线程间通讯 详见：[多线程移植](#多线程移植esp32)
+多线程环境下，一个线程跑一个任务管理器，跨任务管理器的通讯需要用线程间通讯 详见：[多线程移植](#多线程移植)
 但在裸机环境或者多线程中只用一个线程跑协程的环境下，就可以直接使用不带 _with_manager 的函数，简化了函数的调用。
 ttask 的延时时间为 0 的时候，ttask将会变成一个纯事件触发的任务。只有调用 xf_task_trigger() 函数才能被执行。
 
@@ -1209,7 +1354,97 @@ xf_task_t xf_task_init_from_pool(xf_task_pool_t pool, xf_task_func_t func, void 
 在 XFusion 中，我们可以随意使用 xf_task 。
 另外，xf_task 也支持独立移植。接下来，介绍如何在裸机和多线程中独立的移植 xf_task
 
-## 裸机移植（stm32）
+## 手把手教你裸机移植（stm32）
 
-## 多线程移植（esp32）
+### 1. 提供一个基础移植工程
+
+我们利用 STM32CUBEMX 配置一个 HAL 库工程。
+
+![xf_task_port_debug_setting](/image/xf_task_port_debug_setting.png)
+
+这里配置 debug （根据自己手上调试器不同自行更改）
+
+![xf_task_port_clock_setting](/image/xf_task_port_clock_setting.png)
+
+这里配置时钟为外部时钟
+
+![xf_task_port_gpio_setting](/image/xf_task_port_gpio_setting.png)
+
+配置 PC13 为推挽输出，方便后续用它做 led 闪烁验证移植完成
+
+![xf_task_port_cpu_clock_setting](/image/xf_task_port_cpu_clock_setting.png)
+
+配置 cpu 主频为 72 MHz 。
+
+![xf_task_port_project_setting](/image/xf_task_port_project_setting.png)
+
+设置导出工程，这里导出 mdk 工程。
+
+![xf_task_port_generator_setting](/image/xf_task_port_generator_setting.png)
+
+让生成的工程更加简洁。
+
+编译后，无报错，无警告，表示成功。
+
+### 2. 将 xf_task 加入工程
+
+找到你导出的工程，进入工程目录。利用 git clone 下载 xf_task 和 xf_utils
+
+```shell
+git clone https://github.com/x-eks-fusion/xf_task.git
+git clone https://github.com/x-eks-fusion/xf_utils.git
+```
+
+![xf_task_port_add_files](/image/xf_task_port_add_files.png)
+![xf_task_port_xf_task_project](/image/xf_task_port_xf_task_project.png)
+![xf_task_port_xf_utils_project](/image/xf_task_port_xf_utils_project.png)
+
+添加 xf_task 到工程里面去
+
+![xf_task_port_add_include_path](/image/xf_task_port_add_include_path.png)
+
+添加 src 到 include path 中
+
+![xf_task_port_add_task_user_setting](/image/xf_task_port_add_task_user_setting.png)
+![xf_task_port_add_utils_user_setting](/image/xf_task_port_add_utils_user_setting.png)
+![xf_task_port_close_attr_setting](/image/xf_task_port_close_attr_setting.png)
+
+添加用户配置项, xf_task 配置项可以保持默认。xf_utils 的配置项关闭 XF_ATTRIBUTE_ENABLE （改功能需要 gnu 且 xf_task 中没用到）和 XF_LOG_LEVEL （减少占用）。
+
+### 3. 添加移植代码
+
+![xf_task_port_add_head](/image/xf_task_port_add_head.png)
+
+首先，添加头文件。
+
+![xf_task_port_tick_func](/image/xf_task_port_tick_func.png)
+
+然后，添加对接 ms 级时间戳的函数。
+
+![xf_task_port_task_init](/image/xf_task_port_task_init.png)
+
+调用函数对接时间戳并初始化默认的任务管理器。
+
+![xf_task_port_manager_run](/image/xf_task_port_manager_run.png)
+
+调用默认管理器进行调度
+
+### 4. 添加 ttask 任务翻转 LED
+
+![xf_task_port_ttask_func](/image/xf_task_port_ttask_func.png)
+
+写一个任务用于循环翻转 LED
+
+![xf_task_port_ttask_create](/image/xf_task_port_ttask_create.png)
+
+在 main 中创建一个 ttask
+
+## 多线程移植
+
+在多线程中，不同的线程可以运行不同的任务管理器。需要注意如下几个点：
+
+- 每个线程都可以创建属于自己的协程任务管理器
+- 不同任务管理器之间需要通过协程间通讯
+- 目前发布订阅只能在默认的调度器中使用 [同步异步的发布订阅机制](#同步异步的发布订阅机制)
+- 除了默认任务管理器，其余创建则需要 xxx_with_manager 版本的函数
 
