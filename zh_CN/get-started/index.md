@@ -19,8 +19,9 @@
 - 选择一个平台开始
   - [从 esp32 开始](starting_with_esp32.md)
   - [从 ws63 开始](starting_with_ws63.md)
-- [编译第一个自己的工程](practical_tips.md)
-- [添加自己的代码](project/index.md)
-- [安装一个组件](project/index.md)
-- [xf 命令参考](project/index.md)
+- [编译第一个自己的工程](build_first_project.md)
+- [添加自己的代码](add_your_owm_code.md)
+- [安装一个组件](install_a_component.md)
+- [使用 vscode 插件](use_vscode_plugin.md)
+- [xf 命令参考](xf_command_reference.md)
 

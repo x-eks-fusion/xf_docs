@@ -979,19 +979,19 @@ typedef XF_HEAP_INTPTR_TYPE xf_heap_intptr_t;
 </style>
 
 <div class="card">
-    <h4>配置宏: <code>XF_TASK_PRIORITY_LEVELS</code></h3>
+    <h4>配置宏: <code>XF_TASK_PRIORITY_LEVELS</code></h4>
     <p><strong>功能：</strong>配置任务最高优先级，1 ~ 1024 之间</p>
     <p><strong>默认值：</strong>24</p>
 </div>
 
 <div class="card">
-    <h4>配置宏: <code>XF_TASK_HUNGER_ENABLE</code></h3>
+    <h4>配置宏: <code>XF_TASK_HUNGER_ENABLE</code></h4>
     <p><strong>功能：</strong>是否启用任务饥饿机制</p>
     <p><strong>默认值：</strong>1</p>
 </div>
 
 <div class="card">
-    <h4>配置宏: <code>XF_TASK_USER_DATA_ENABLE</code></h3>
+    <h4>配置宏: <code>XF_TASK_USER_DATA_ENABLE</code></h4>
     <p><strong>功能：</strong>是否启用 user_data</p>
     <p><strong>默认值：</strong>1</p>
 </div>
@@ -999,13 +999,13 @@ typedef XF_HEAP_INTPTR_TYPE xf_heap_intptr_t;
 #### port 配置
 
 <div class="card">
-    <h4>配置宏: <code>XF_TASK_TICKS_FREQUENCY</code></h3>
+    <h4>配置宏: <code>XF_TASK_TICKS_FREQUENCY</code></h4>
     <p><strong>功能：</strong>对接定时器的滴答频率，单位为 Hz</p>
     <p><strong>默认值：</strong>1000</p>
 </div>
 
 <div class="card">
-    <h4>配置宏: <code>XF_TASK_CONTEXT_TYPE</code></h3>
+    <h4>配置宏: <code>XF_TASK_CONTEXT_TYPE</code></h4>
     <p><strong>功能：</strong>设置上下文类型</p>
     <p><strong>默认值：</strong>无默认值，开启了 ctask 必须配置该选项</p>
 </div>
@@ -1013,13 +1013,13 @@ typedef XF_HEAP_INTPTR_TYPE xf_heap_intptr_t;
 #### utils 配置
 
 <div class="card">
-    <h4>配置宏: <code>XF_TASK_MBUS_ENABLE</code></h3>
+    <h4>配置宏: <code>XF_TASK_MBUS_ENABLE</code></h4>
     <p><strong>功能：</strong>是否打开 MBUS 功能</p>
     <p><strong>默认值：</strong>1</p>
 </div>
 
 <div class="card">
-    <h4>配置宏: <code>XF_TASK_POOL_ENABLE</code></h3>
+    <h4>配置宏: <code>XF_TASK_POOL_ENABLE</code></h4>
     <p><strong>功能：</strong>是否打开任务池功能</p>
     <p><strong>默认值：</strong>1</p>
 </div>
@@ -1027,13 +1027,13 @@ typedef XF_HEAP_INTPTR_TYPE xf_heap_intptr_t;
 #### 内部公共配置
 
 <div class="card">
-    <h4>配置宏: <code>XF_TASK_CONTEXT_DISABLE</code></h3>
+    <h4>配置宏: <code>XF_TASK_CONTEXT_DISABLE</code></h4>
     <p><strong>功能：</strong>是否打开 ctask</p>
     <p><strong>默认值：</strong>0</p>
 </div>
 
 <div class="card">
-    <h4>配置宏: <code>XF_TASK_TIME_TYPE</code></h3>
+    <h4>配置宏: <code>XF_TASK_TIME_TYPE</code></h4>
     <p><strong>功能：</strong>时间戳类型</p>
     <p><strong>默认值：</strong>uint64_t</p>
 </div>

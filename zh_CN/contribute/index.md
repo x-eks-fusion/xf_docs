@@ -42,6 +42,7 @@
 # 子文档
 
 - [代码注释指南](./code_comment_guide.md)
+- [移植示例 - 添加组件支持](./code_component.md)
 - [编码风格指南](./coding_style_guide.md)
 - [文档编写指南](./documentation_guide.md)
 - [PR 提交步骤](./pull_request_process.md)
