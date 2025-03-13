@@ -19,13 +19,13 @@ sudo apt-get install python3 python3-pip
 如果环境中有 python3， 但是没有 python , 可以创建 python 的软连接
 
 ```bash
-sudo ln -s /usr/bin/python3 /user/bin/python
+sudo ln -s /usr/bin/python3 /usr/bin/python
 ```
 
 还需要安装 [git](https://git-scm.com/) 方便拉取源码
 
 ```bash
-sudo apt-get git
+sudo apt-get install git
 ```
 
 # 安装 XFusion
