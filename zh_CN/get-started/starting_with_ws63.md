@@ -5,6 +5,9 @@
 
 本文主要介绍如何搭建 WS63 的 XFusion 开发环境
 
+> [!WARNING] 开发环境支持情况
+> XFusion 下本平台已支持 (测试验证) 的开发环境有：Linux
+
 # 关于 WS63
 
 WS63 系列是 2.4GHz Wi-Fi 6 BLE 星闪多模 IoT SoC 芯片，其中增强款芯片 WS63 支持 2.4GHz 的雷达人体活动检测功能，适用于大小家电、电工照明及对人体出没检测有需求的常电类物联网智能场景。
@@ -23,7 +26,7 @@ WS63 系列芯片采用 QFN40（5mm x 5mm）封装，匹配不同场合的应用
 
 # 激活 XFusion
 
-通过之前在 .bashrc 中保存的激活命令的别名来激活
+通过之前在 .bashrc 中保存的激活命令的别名来激活 (详见[安装 XFusion](preparation_with_linux.md#安装-xfusion))
 ```bash
 get_xf ws63
 ```

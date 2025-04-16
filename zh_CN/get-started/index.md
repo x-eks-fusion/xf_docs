@@ -13,7 +13,7 @@
 # 目录
 
 - [介绍](introduction.md)
-- 准备工作
+- 环境搭建 (xfusion)
   - [linux 环境搭建](preparation_with_linux.md)
   - [windows 环境搭建](preparation_with_windows.md)
 - 选择一个平台开始

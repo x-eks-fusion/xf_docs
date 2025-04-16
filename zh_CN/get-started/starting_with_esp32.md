@@ -5,6 +5,9 @@
 
 本文主要介绍如何搭建 ESP32 的 XFusion 开发环境
 
+> [!WARNING] 开发环境支持情况
+> XFusion 下本平台已支持 (测试验证) 的开发环境有：Linux
+
 # 关于 ESP32
 
 ESP32 是由乐鑫科技（Espressif Systems）推出的一款高性能 IoT SoC（系统级芯片），支持 Wi-Fi 和 BLE 双模通信，广泛应用于智能家居、工业自动化和可穿戴设备等物联网场景。ESP32 系列芯片内置强大的计算能力和多样化的外设接口，能够满足复杂 IoT 应用的需求。
@@ -64,7 +67,7 @@ BLE 功能：支持 BLE 4.2 和 BLE 5.0 协议，提供高达 2Mbps 的空口速
     ```
 
 2. 激活 XFusion 环境
-    通过之前在 .bashrc 中保存的激活命令的别名来激活
+    通过之前在 .bashrc 中保存的激活命令的别名来激活 (详见[安装 XFusion](preparation_with_linux.md#安装-xfusion))
     ```bash
     get_xf esp32
     ```

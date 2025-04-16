@@ -5,6 +5,9 @@
 
 本文主要介绍如何搭建 BS21 的 XFusion 开发环境
 
+> [!WARNING] 开发环境支持情况
+> XFusion 下本平台已支持 (测试验证) 的开发环境有：Linux
+
 # 关于 BS21
 
 bs21 是一款高度集成 2.4GHz SoC BLE&SLE 芯片，集成 BLE5.4/SLE1.0 和
@@ -38,7 +41,7 @@ bs21 适应于 PC 配件，IOT 等物联网智能终端领域。
 
 # 激活 XFusion
 
-通过之前在 .bashrc 中保存的激活命令的别名来激活
+通过之前在 .bashrc 中保存的激活命令的别名来激活 (详见[安装 XFusion](preparation_with_linux.md#安装-xfusion))
 ```bash
 get_xf bs21
 ```
