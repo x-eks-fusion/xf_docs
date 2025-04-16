@@ -38,7 +38,7 @@ bs21 适应于 PC 配件，IOT 等物联网智能终端领域。
 
 # 激活 XFusion
 
-通过之前在 .bashrc 中保存的激活命令的别名来激活
+通过之前在 .bashrc 中保存的激活命令的别名来激活 (详见[安装 XFusion](preparation_with_linux.md#安装-xfusion))
 ```bash
 get_xf bs21
 ```

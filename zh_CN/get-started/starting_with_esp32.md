@@ -64,7 +64,7 @@ BLE 功能：支持 BLE 4.2 和 BLE 5.0 协议，提供高达 2Mbps 的空口速
     ```
 
 2. 激活 XFusion 环境
-    通过之前在 .bashrc 中保存的激活命令的别名来激活
+    通过之前在 .bashrc 中保存的激活命令的别名来激活 (详见[安装 XFusion](preparation_with_linux.md#安装-xfusion))
     ```bash
     get_xf esp32
     ```

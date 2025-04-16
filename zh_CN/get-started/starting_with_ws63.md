@@ -23,7 +23,7 @@ WS63 系列芯片采用 QFN40（5mm x 5mm）封装，匹配不同场合的应用
 
 # 激活 XFusion
 
-通过之前在 .bashrc 中保存的激活命令的别名来激活
+通过之前在 .bashrc 中保存的激活命令的别名来激活 (详见[安装 XFusion](preparation_with_linux.md#安装-xfusion))
 ```bash
 get_xf ws63
 ```
