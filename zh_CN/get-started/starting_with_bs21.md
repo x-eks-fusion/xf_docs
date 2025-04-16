@@ -5,6 +5,9 @@
 
 本文主要介绍如何搭建 BS21 的 XFusion 开发环境
 
+> [!WARNING] 开发环境支持情况
+> XFusion 下本平台已支持 (测试验证) 的开发环境有：Linux
+
 # 关于 BS21
 
 bs21 是一款高度集成 2.4GHz SoC BLE&SLE 芯片，集成 BLE5.4/SLE1.0 和
