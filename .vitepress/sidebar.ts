@@ -50,6 +50,20 @@ function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
             link: "/zh_CN/get-started/introduction",
         },
         {
+            text: "环境搭建",
+            collapsed: true,
+            items: [
+                {
+                    text: "linux 环境搭建",
+                    link: "zh_CN/get-started/preparation_with_linux.md",
+                },
+                {
+                    text: "windows 环境搭建",
+                    link: "zh_CN/get-started/preparation_with_windows.md",
+                },
+            ],
+        },
+        {
             text: "选择一个平台开始",
             collapsed: true,
             items: [
@@ -64,20 +78,6 @@ function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
                 {
                     text: "从 bs21 开始",
                     link: "/zh_CN/get-started/starting_with_bs21",
-                },
-            ],
-        },
-        {
-            text: "环境搭建",
-            collapsed: true,
-            items: [
-                {
-                    text: "linux 环境搭建",
-                    link: "zh_CN/get-started/preparation_with_linux.md",
-                },
-                {
-                    text: "windows 环境搭建",
-                    link: "zh_CN/get-started/preparation_with_windows.md",
                 },
             ],
         },
