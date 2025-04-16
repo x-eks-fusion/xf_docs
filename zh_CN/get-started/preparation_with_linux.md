@@ -5,8 +5,8 @@
 
 本文主要介绍在 Linux 环境中如何搭建 XFusion 开发环境
 
-> [!TIP] 环境搭建
-> 具体搭建linux还是windows环境，需要看SDK可以在windows还是linux上开发
+> [!WARNING] 前提条件
+> - **环境搭建前，需要先简单查看 [选择一个平台开始](index.md) 下，对应平台所支持的开发环境，是否支持此处将要搭建的环境 (Linux)**
 
 # 前置准备
 
@@ -53,7 +53,7 @@ sudo apt-get git
   alias get_xf=". ~/xfusion/export.sh"   # 双引号后面是 XFusion 路径
   ```
   然后通过 <kbd>Esc</kbd> 退出编辑。
-  最后通过 <kbd>:</kbd>+<kbd>w</kbd>+<kbd>q</kbd> 再加上回车确认保存。
+  最后通过 <kbd>:</kbd>+<kbd>w</kbd>+<kbd>q</kbd>，即"<kbd>:wq</kbd>", 再加上回车确认保存。
 
   至此，重启终端后。每次激活只需要输入：
   ```bash

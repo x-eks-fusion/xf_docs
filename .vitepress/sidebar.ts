@@ -50,7 +50,7 @@ function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
             link: "/zh_CN/get-started/introduction",
         },
         {
-            text: "环境搭建",
+            text: "环境搭建 (xfusion)",
             collapsed: true,
             items: [
                 {

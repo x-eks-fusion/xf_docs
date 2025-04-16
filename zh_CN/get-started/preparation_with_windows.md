@@ -5,8 +5,8 @@
 
 本文主要介绍在 Windows 环境中如何搭建 XFusion 开发环境
 
-> [!TIP] 环境搭建
-> 具体搭建linux还是windows环境，需要看SDK可以在windows还是linux上开发
+> [!WARNING] 前提条件
+> - **环境搭建前，需要先简单查看 [选择一个平台开始](index.md) 下，对应平台所支持的开发环境，是否支持此处将要搭建的环境 (Windows)**
 
 # 前置准备
 
